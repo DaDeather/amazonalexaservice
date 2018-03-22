@@ -1,0 +1,32 @@
+{
+  "name": "dadadev/amazonalexaservice",
+  "description": "This is a lib to create responses and parse requests for amazons alexa skills",
+  "type": "library",
+  "require": {
+    "php": ">=7.1.0",
+    "jms/serializer": "^1.11"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.0"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ismail Özgün Turan",
+      "email": "oezguen.turan@dadadev.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "DaDaDev\\AmazonAlexa\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "DaDaDev\\AmazonAlexaTests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "phpunit"
+  }
+}
