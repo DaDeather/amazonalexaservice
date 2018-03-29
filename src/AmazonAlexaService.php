@@ -57,8 +57,8 @@ class AmazonAlexaService
      * @throws ValidationException
      */
     public function validateIncomingRequest(
-        string $signatureCertChainUrl,
-        string $signature,
+        ?string $signatureCertChainUrl,
+        ?string $signature,
         string $rawJsonRequest,
         Request $alexaRequest
     ): bool {
