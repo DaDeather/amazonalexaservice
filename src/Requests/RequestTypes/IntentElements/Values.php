@@ -1,6 +1,6 @@
 <?php
 
-namespace DaDaDev\AmazonAlexa\Requests;
+namespace DaDaDev\AmazonAlexa\Requests\RequestTypes\IntentElements;
 
 use JMS\Serializer\Annotation as JMS;
 
@@ -8,7 +8,7 @@ class Values
 {
     /**
      * @var Value[]|null
-     * @JMS\Type("array<DaDaDev\AmazonAlexa\Requests\Value>")
+     * @JMS\Type("array<DaDaDev\AmazonAlexa\Requests\RequestTypes\IntentElements\Value>")
      */
     protected $value;
 

@@ -1,7 +1,9 @@
 <?php
 
-namespace DaDaDev\AmazonAlexa\Requests;
+namespace DaDaDev\AmazonAlexa\Requests\RequestTypes;
 
+use DaDaDev\AmazonAlexa\Requests\AbstractRequest;
+use DaDaDev\AmazonAlexa\Requests\RequestTypes\SessionEndedElements\Error;
 use JMS\Serializer\Annotation as JMS;
 
 class SessionEndedRequest extends AbstractRequest
@@ -14,7 +16,7 @@ class SessionEndedRequest extends AbstractRequest
 
     /**
      * @var Error|null
-     * @JMS\Type("DaDaDev\AmazonAlexa\Requests\Error")
+     * @JMS\Type("DaDaDev\AmazonAlexa\Requests\RequestTypes\SessionEndedElements\Error")
      */
     protected $error;
 

@@ -1,14 +1,18 @@
 <?php
 
-namespace DaDaDev\AmazonAlexa\Requests;
+namespace DaDaDev\AmazonAlexa\Requests\RequestTypes\IntentElements;
 
 use JMS\Serializer\Annotation as JMS;
 
-class Intent
+class Slot
 {
+    /**#@+
+     * @var string
+     */
     public const CONFIRMATION_STATUS_NONE = 'NONE';
     public const CONFIRMATION_STATUS_CONFIRMED = 'CONFIRMED';
     public const CONFIRMATION_STATUS_DENIED = 'DENIED';
+    /**#@-*/
 
     /**
      * @var string|null
@@ -19,15 +23,20 @@ class Intent
     /**
      * @var string|null
      * @JMS\Type("string")
-     * @JMS\SerializedName("confirmationStatus")
+     */
+    protected $value;
+
+    /**
+     * @var string|null
+     * @JMS\Type("string")
      */
     protected $confirmationStatus;
 
     /**
-     * @var array|null
-     * @JMS\Type("array<string, DaDaDev\AmazonAlexa\Requests\Slot>")
+     * @var Resolution|null
+     * @JMS\Type("DaDaDev\AmazonAlexa\Requests\RequestTypes\IntentElements\Resolution")
      */
-    protected $slots;
+    protected $resolutions;
 
     /**
      * @return string|null
@@ -40,16 +49,24 @@ class Intent
     /**
      * @return string|null
      */
+    public function getValue(): ?string
+    {
+        return $this->value;
+    }
+
+    /**
+     * @return string|null
+     */
     public function getConfirmationStatus(): ?string
     {
         return $this->confirmationStatus;
     }
 
     /**
-     * @return array|null
+     * @return Resolution|null
      */
-    public function getSlots(): ?array
+    public function getResolutions(): ?Resolution
     {
-        return $this->slots;
+        return $this->resolutions;
     }
 }

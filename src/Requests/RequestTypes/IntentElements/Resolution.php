@@ -1,14 +1,14 @@
 <?php
 
-namespace DaDaDev\AmazonAlexa\Requests;
+namespace DaDaDev\AmazonAlexa\Requests\RequestTypes\IntentElements;
 
 use JMS\Serializer\Annotation as JMS;
 
 class Resolution
 {
     /**
-     * @var array|null
-     * @JMS\Type("array<DaDaDev\AmazonAlexa\Requests\ResolutionPerAuthority>")
+     * @var ResolutionPerAuthority[]|null
+     * @JMS\Type("array<DaDaDev\AmazonAlexa\Requests\RequestTypes\IntentElements\ResolutionPerAuthority>")
      * @JMS\SerializedName("resolutionPerAuthority")
      */
     protected $resolutionsPerAuthority;

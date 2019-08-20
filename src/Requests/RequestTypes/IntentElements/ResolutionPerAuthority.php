@@ -1,6 +1,6 @@
 <?php
 
-namespace DaDaDev\AmazonAlexa\Requests;
+namespace DaDaDev\AmazonAlexa\Requests\RequestTypes\IntentElements;
 
 use JMS\Serializer\Annotation as JMS;
 
@@ -14,13 +14,13 @@ class ResolutionPerAuthority
 
     /**
      * @var Status|null
-     * @JMS\Type("DaDaDev\AmazonAlexa\Requests\Status")
+     * @JMS\Type("DaDaDev\AmazonAlexa\Requests\RequestTypes\IntentElements\Status")
      */
     protected $status;
 
     /**
      * @var Values[]|null
-     * @JMS\Type("array<DaDaDev\AmazonAlexa\Requests\Values>")
+     * @JMS\Type("array<DaDaDev\AmazonAlexa\Requests\RequestTypes\IntentElements\Values>")
      */
     protected $values;
 

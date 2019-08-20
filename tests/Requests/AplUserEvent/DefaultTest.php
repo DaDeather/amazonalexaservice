@@ -3,7 +3,7 @@
 namespace DaDaDev\AmazonAlexaTests\Requests\AplUserEvent;
 
 use DaDaDev\AmazonAlexa\AmazonAlexaService;
-use DaDaDev\AmazonAlexa\Requests\AplUserEventRequest;
+use DaDaDev\AmazonAlexa\Requests\RequestTypes\AplUserEventRequest;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;

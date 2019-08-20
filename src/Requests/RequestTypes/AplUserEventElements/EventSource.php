@@ -1,6 +1,6 @@
 <?php
 
-namespace DaDaDev\AmazonAlexa\Requests;
+namespace DaDaDev\AmazonAlexa\Requests\RequestTypes\AplUserEventElements;
 
 use JMS\Serializer\Annotation as JMS;
 

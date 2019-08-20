@@ -1,26 +1,29 @@
 <?php
 
-namespace DaDaDev\AmazonAlexa\Requests;
+namespace DaDaDev\AmazonAlexa\Requests\ContextElements;
 
+use DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\Application;
+use DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\Device;
+use DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\User;
 use JMS\Serializer\Annotation as JMS;
 
 class System
 {
     /**
      * @var Device|null
-     * @JMS\Type("DaDaDev\AmazonAlexa\Requests\Device")
+     * @JMS\Type("DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\Device")
      */
     private $device;
 
     /**
      * @var Application|null
-     * @JMS\Type("DaDaDev\AmazonAlexa\Requests\Application")
+     * @JMS\Type("DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\Application")
      */
     private $application;
 
     /**
      * @var User|null
-     * @JMS\Type("DaDaDev\AmazonAlexa\Requests\User")
+     * @JMS\Type("DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\User")
      */
     private $user;
 

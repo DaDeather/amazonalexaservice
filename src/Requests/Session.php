@@ -2,6 +2,8 @@
 
 namespace DaDaDev\AmazonAlexa\Requests;
 
+use DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\Application;
+use DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\User;
 use JMS\Serializer\Annotation as JMS;
 
 class Session
@@ -21,7 +23,7 @@ class Session
 
     /**
      * @var Application|null
-     * @JMS\Type("DaDaDev\AmazonAlexa\Requests\Application")
+     * @JMS\Type("DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\Application")
      */
     protected $application;
 
@@ -33,7 +35,7 @@ class Session
 
     /**
      * @var User|null
-     * @JMS\Type("DaDaDev\AmazonAlexa\Requests\User")
+     * @JMS\Type("DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\User")
      */
     protected $user;
 

@@ -1,36 +1,36 @@
 <?php
 
-namespace DaDaDev\AmazonAlexa\Requests;
+namespace DaDaDev\AmazonAlexa\Requests\RequestTypes\SessionEndedElements;
 
 use JMS\Serializer\Annotation as JMS;
 
-class Value
+class Error
 {
     /**
      * @var string|null
      * @JMS\Type("string")
      */
-    protected $id;
+    protected $type;
 
     /**
      * @var string|null
      * @JMS\Type("string")
      */
-    protected $name;
+    protected $message;
 
     /**
      * @return string|null
      */
-    public function getId(): ?string
+    public function getType(): ?string
     {
-        return $this->id;
+        return $this->type;
     }
 
     /**
      * @return string|null
      */
-    public function getName(): ?string
+    public function getMessage(): ?string
     {
-        return $this->name;
+        return $this->message;
     }
 }

@@ -1,7 +1,9 @@
 <?php
 
-namespace DaDaDev\AmazonAlexa\Requests;
+namespace DaDaDev\AmazonAlexa\Requests\RequestTypes;
 
+use DaDaDev\AmazonAlexa\Requests\AbstractRequest;
+use DaDaDev\AmazonAlexa\Requests\RequestTypes\IntentElements\Intent;
 use JMS\Serializer\Annotation as JMS;
 
 class IntentRequest extends AbstractRequest
@@ -19,7 +21,7 @@ class IntentRequest extends AbstractRequest
 
     /**
      * @var Intent|null
-     * @JMS\Type("DaDaDev\AmazonAlexa\Requests\Intent")
+     * @JMS\Type("DaDaDev\AmazonAlexa\Requests\RequestTypes\IntentElements\Intent")
      */
     protected $intent;
 

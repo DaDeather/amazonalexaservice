@@ -4,7 +4,7 @@ namespace DaDaDev\AmazonAlexa;
 
 use DaDaDev\AmazonAlexa\Exceptions\ParseRequestException;
 use DaDaDev\AmazonAlexa\Exceptions\ValidationException;
-use DaDaDev\AmazonAlexa\Requests\LaunchRequest;
+use DaDaDev\AmazonAlexa\Requests\RequestTypes\LaunchRequest;
 use DaDaDev\AmazonAlexa\Responses\OutputSpeech;
 use JMS\Serializer\SerializerInterface;
 

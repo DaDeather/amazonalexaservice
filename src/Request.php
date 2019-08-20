@@ -2,9 +2,9 @@
 
 namespace DaDaDev\AmazonAlexa;
 
-use DaDaDev\AmazonAlexa\Requests\Context;
 use DaDaDev\AmazonAlexa\Requests\AbstractRequest;
-use DaDaDev\AmazonAlexa\Requests\IntentRequest;
+use DaDaDev\AmazonAlexa\Requests\Context;
+use DaDaDev\AmazonAlexa\Requests\RequestTypes\IntentRequest;
 use DaDaDev\AmazonAlexa\Requests\Session;
 use JMS\Serializer\Annotation as JMS;
 

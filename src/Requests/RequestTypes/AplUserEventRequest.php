@@ -1,7 +1,9 @@
 <?php
 
-namespace DaDaDev\AmazonAlexa\Requests;
+namespace DaDaDev\AmazonAlexa\Requests\RequestTypes;
 
+use DaDaDev\AmazonAlexa\Requests\AbstractRequest;
+use DaDaDev\AmazonAlexa\Requests\RequestTypes\AplUserEventElements\EventSource;
 use JMS\Serializer\Annotation as JMS;
 
 class AplUserEventRequest extends AbstractRequest
@@ -22,7 +24,7 @@ class AplUserEventRequest extends AbstractRequest
 
     /**
      * @var EventSource|null
-     * @JMS\Type("DaDaDev\AmazonAlexa\Requests\EventSource")
+     * @JMS\Type("DaDaDev\AmazonAlexa\Requests\RequestTypes\AplUserEventElements\EventSource")
      * @JMS\SerializedName("source")
      */
     protected $source;

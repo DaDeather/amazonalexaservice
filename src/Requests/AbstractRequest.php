@@ -2,6 +2,10 @@
 
 namespace DaDaDev\AmazonAlexa\Requests;
 
+use DaDaDev\AmazonAlexa\Requests\RequestTypes\AplUserEventRequest;
+use DaDaDev\AmazonAlexa\Requests\RequestTypes\IntentRequest;
+use DaDaDev\AmazonAlexa\Requests\RequestTypes\LaunchRequest;
+use DaDaDev\AmazonAlexa\Requests\RequestTypes\SessionEndedRequest;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -9,10 +13,10 @@ use JMS\Serializer\Annotation as JMS;
  *     field="type",
  *     disabled=false,
  *     map={
- *          "LaunchRequest": "DaDaDev\AmazonAlexa\Requests\LaunchRequest",
- *          "IntentRequest": "DaDaDev\AmazonAlexa\Requests\IntentRequest",
- *          "SessionEndedRequest": "DaDaDev\AmazonAlexa\Requests\SessionEndedRequest",
- *          "Alexa.Presentation.APL.UserEvent": "DaDaDev\AmazonAlexa\Requests\AplUserEventRequest",
+ *          "LaunchRequest": "DaDaDev\AmazonAlexa\Requests\RequestTypes\LaunchRequest",
+ *          "IntentRequest": "DaDaDev\AmazonAlexa\Requests\RequestTypes\IntentRequest",
+ *          "SessionEndedRequest": "DaDaDev\AmazonAlexa\Requests\RequestTypes\SessionEndedRequest",
+ *          "Alexa.Presentation.APL.UserEvent": "DaDaDev\AmazonAlexa\Requests\RequestTypes\AplUserEventRequest",
  *     }
  * )
  */
