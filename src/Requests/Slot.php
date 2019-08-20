@@ -4,9 +4,6 @@ namespace DaDaDev\AmazonAlexa\Requests;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class Slot
- */
 class Slot
 {
     /**#@+
@@ -42,7 +39,7 @@ class Slot
     protected $resolutions;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getName(): ?string
     {
@@ -50,17 +47,7 @@ class Slot
     }
 
     /**
-     * @param null|string $name
-     * @return Slot
-     */
-    public function setName(?string $name): Slot
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    /**
-     * @return null|string
+     * @return string|null
      */
     public function getValue(): ?string
     {
@@ -68,31 +55,11 @@ class Slot
     }
 
     /**
-     * @param null|string $value
-     * @return Slot
-     */
-    public function setValue(?string $value): Slot
-    {
-        $this->value = $value;
-        return $this;
-    }
-
-    /**
-     * @return null|string
+     * @return string|null
      */
     public function getConfirmationStatus(): ?string
     {
         return $this->confirmationStatus;
-    }
-
-    /**
-     * @param null|string $confirmationStatus
-     * @return Slot
-     */
-    public function setConfirmationStatus(?string $confirmationStatus): Slot
-    {
-        $this->confirmationStatus = $confirmationStatus;
-        return $this;
     }
 
     /**
@@ -101,15 +68,5 @@ class Slot
     public function getResolutions(): ?Resolution
     {
         return $this->resolutions;
-    }
-
-    /**
-     * @param Resolution|null $resolutions
-     * @return Slot
-     */
-    public function setResolutions(?Resolution $resolutions): Slot
-    {
-        $this->resolutions = $resolutions;
-        return $this;
     }
 }

@@ -4,9 +4,6 @@ namespace DaDaDev\AmazonAlexa\Requests;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class AudioPlayer
- */
 class AudioPlayer
 {
     /**
@@ -68,16 +65,6 @@ class AudioPlayer
     }
 
     /**
-     * @param null|string $playerActivity
-     * @return AudioPlayer
-     */
-    public function setPlayerActivity(?string $playerActivity): AudioPlayer
-    {
-        $this->playerActivity = $playerActivity;
-        return $this;
-    }
-
-    /**
      * @return string|null
      */
     public function getToken(): ?string
@@ -86,30 +73,10 @@ class AudioPlayer
     }
 
     /**
-     * @param null|string $token
-     * @return AudioPlayer
-     */
-    public function setToken(?string $token): AudioPlayer
-    {
-        $this->token = $token;
-        return $this;
-    }
-
-    /**
      * @return int|null
      */
     public function getOffsetInMilliseconds(): ?int
     {
         return $this->offsetInMilliseconds;
-    }
-
-    /**
-     * @param int|null $offsetInMilliseconds
-     * @return AudioPlayer
-     */
-    public function setOffsetInMilliseconds(?int $offsetInMilliseconds): AudioPlayer
-    {
-        $this->offsetInMilliseconds = $offsetInMilliseconds;
-        return $this;
     }
 }

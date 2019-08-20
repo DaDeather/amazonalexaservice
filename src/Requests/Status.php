@@ -4,9 +4,6 @@ namespace DaDaDev\AmazonAlexa\Requests;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class Status
- */
 class Status
 {
     /**
@@ -16,20 +13,10 @@ class Status
     protected $code;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getCode(): ?string
     {
         return $this->code;
-    }
-
-    /**
-     * @param null|string $code
-     * @return Status
-     */
-    public function setCode(?string $code): Status
-    {
-        $this->code = $code;
-        return $this;
     }
 }

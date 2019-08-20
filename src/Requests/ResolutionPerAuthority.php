@@ -4,9 +4,6 @@ namespace DaDaDev\AmazonAlexa\Requests;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class ResolutionPerAuthority
- */
 class ResolutionPerAuthority
 {
     /**
@@ -28,21 +25,11 @@ class ResolutionPerAuthority
     protected $values;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getAuthority(): ?string
     {
         return $this->authority;
-    }
-
-    /**
-     * @param null|string $authority
-     * @return ResolutionPerAuthority
-     */
-    public function setAuthority(?string $authority): ResolutionPerAuthority
-    {
-        $this->authority = $authority;
-        return $this;
     }
 
     /**
@@ -54,30 +41,10 @@ class ResolutionPerAuthority
     }
 
     /**
-     * @param Status|null $status
-     * @return ResolutionPerAuthority
-     */
-    public function setStatus(?Status $status): ResolutionPerAuthority
-    {
-        $this->status = $status;
-        return $this;
-    }
-
-    /**
      * @return Values[]|null
      */
     public function getValues(): ?array
     {
         return $this->values;
-    }
-
-    /**
-     * @param Values[]|null $values
-     * @return ResolutionPerAuthority
-     */
-    public function setValues(?array $values): ResolutionPerAuthority
-    {
-        $this->values = $values;
-        return $this;
     }
 }

@@ -4,13 +4,10 @@ namespace DaDaDev\AmazonAlexa\Requests;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class Session
- */
 class Session
 {
     /**
-     * @var boolean|null
+     * @var bool|null
      * @JMS\Type("boolean")
      */
     protected $new = false;
@@ -49,31 +46,11 @@ class Session
     }
 
     /**
-     * @param bool $new
-     * @return Session
-     */
-    public function setNew(?bool $new): Session
-    {
-        $this->new = $new;
-        return $this;
-    }
-
-    /**
      * @return string|null
      */
     public function getSessionId(): ?string
     {
         return $this->sessionId;
-    }
-
-    /**
-     * @param string|null $sessionId
-     * @return Session
-     */
-    public function setSessionId(?string $sessionId): Session
-    {
-        $this->sessionId = $sessionId;
-        return $this;
     }
 
     /**
@@ -85,16 +62,6 @@ class Session
     }
 
     /**
-     * @param Application|null $application
-     * @return Session
-     */
-    public function setApplication(?Application $application): Session
-    {
-        $this->application = $application;
-        return $this;
-    }
-
-    /**
      * @return array|null
      */
     public function getAttributes(): ?array
@@ -103,30 +70,10 @@ class Session
     }
 
     /**
-     * @param array|null $attributes
-     * @return Session
-     */
-    public function setAttributes(?array $attributes): Session
-    {
-        $this->attributes = $attributes;
-        return $this;
-    }
-
-    /**
      * @return User|null
      */
     public function getUser(): ?User
     {
         return $this->user;
-    }
-
-    /**
-     * @param User|null $user
-     * @return Session
-     */
-    public function setUser(?User $user): Session
-    {
-        $this->user = $user;
-        return $this;
     }
 }

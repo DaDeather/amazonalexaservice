@@ -6,13 +6,13 @@ Simple kept service for parsing and creating requests and responses for the comm
 
 Creating the Service:
 ```
-$amazonAlexaService = new DaDaDev\AmazonAlexa\AmazonAlexaService('YOUR APP ID HERE');
+$amazonAlexaService = new \DaDaDev\AmazonAlexa\AmazonAlexaService('YOUR APP ID HERE');
 ```
 
 Full Example:
 ```
-$serializer = JMS\Serializer\SerializerBuilder::create()->build();
-$amazonAlexaService = new DaDaDev\AmazonAlexa\AmazonAlexaService('YOUR APP ID HERE', $serializer);
+$serializer = \JMS\Serializer\SerializerBuilder::create()->build();
+$amazonAlexaService = new \DaDaDev\AmazonAlexa\AmazonAlexaService('YOUR APP ID HERE', $serializer);
  
 $jsonRequest = file_get_contents('php://input');
 $request = $amazonAlexaService->getAlexaRequest($jsonRequest);
@@ -24,7 +24,7 @@ try {
         $jsonRequest,
         $request
     );
-} catch (\Exception | DaDaDev\AmazonAlexa\Exceptions\ValidationException $exception) {
+} catch (\Exception | \DaDaDev\AmazonAlexa\Exceptions\ValidationException $exception) {
     http_response_code(404);
     exit(json_encode([
         'status' => 'failed',
@@ -34,11 +34,11 @@ try {
 }
  
 $response = $amazonAlexaService->handleIntentsThroughConfiguration($request, [
-    'AnyIntentName' => function (DaDaDev\AmazonAlexa\Request $alexaRequest) {
+    'AnyIntentName' => function (\DaDaDev\AmazonAlexa\Request $alexaRequest) {
         // ... do what ever you want for the intent
         
         // Return a or anything else you want to process further
-        $response = new DaDaDev\AmazonAlexa\Response();
+        $response = new \DaDaDev\AmazonAlexa\Response();
         return $response;
     },
 ]);

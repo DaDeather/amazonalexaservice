@@ -4,9 +4,6 @@ namespace DaDaDev\AmazonAlexa\Responses;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class Card
- */
 class Card
 {
     /**
@@ -40,7 +37,7 @@ class Card
     protected $image;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getType(): ?string
     {
@@ -48,17 +45,19 @@ class Card
     }
 
     /**
-     * @param null|string $type
+     * @param string|null $type
+     *
      * @return Card
      */
     public function setType(?string $type): Card
     {
         $this->type = $type;
+
         return $this;
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getTitle(): ?string
     {
@@ -66,17 +65,19 @@ class Card
     }
 
     /**
-     * @param null|string $title
+     * @param string|null $title
+     *
      * @return Card
      */
     public function setTitle(?string $title): Card
     {
         $this->title = $title;
+
         return $this;
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getContent(): ?string
     {
@@ -84,17 +85,19 @@ class Card
     }
 
     /**
-     * @param null|string $content
+     * @param string|null $content
+     *
      * @return Card
      */
     public function setContent(?string $content): Card
     {
         $this->content = $content;
+
         return $this;
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getText(): ?string
     {
@@ -102,12 +105,14 @@ class Card
     }
 
     /**
-     * @param null|string $text
+     * @param string|null $text
+     *
      * @return Card
      */
     public function setText(?string $text): Card
     {
         $this->text = $text;
+
         return $this;
     }
 
@@ -121,11 +126,13 @@ class Card
 
     /**
      * @param Image|null $image
+     *
      * @return Card
      */
     public function setImage(?Image $image): Card
     {
         $this->image = $image;
+
         return $this;
     }
 }

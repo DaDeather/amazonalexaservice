@@ -4,6 +4,7 @@ namespace DaDaDev\AmazonAlexaTests;
 
 use DaDaDev\AmazonAlexa\AmazonAlexaService;
 use JMS\Serializer\SerializerInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class AmazonAlexaServiceInitTest extends TestCase
@@ -11,7 +12,7 @@ class AmazonAlexaServiceInitTest extends TestCase
     private const SOME_APP_ID = 'someAppId';
 
     /**
-     * @var SerializerInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var SerializerInterface|MockObject
      */
     private $serializer;
 

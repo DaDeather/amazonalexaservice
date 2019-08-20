@@ -4,9 +4,6 @@ namespace DaDaDev\AmazonAlexa\Requests;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class Device
- */
 class Device
 {
     /**
@@ -17,8 +14,9 @@ class Device
     private $deviceId;
 
     /**
-     * @var string[]|null
-     * @JMS\Type("array<string, string>")
+     * @var array[]|null
+     * @JMS\Type("array<string, array<string, array<string, string>>>")
+     * @JMS\SerializedName("supportedInterfaces")
      */
     private $supportedInterfaces;
 
@@ -31,17 +29,7 @@ class Device
     }
 
     /**
-     * @param string|null $deviceId
-     * @return Device
-     */
-    public function setDeviceId(?string $deviceId): Device
-    {
-        $this->deviceId = $deviceId;
-        return $this;
-    }
-
-    /**
-     * @return string[]|null
+     * @return array|null
      */
     public function getSupportedInterfaces(): ?array
     {
@@ -49,12 +37,22 @@ class Device
     }
 
     /**
-     * @param string[]|null $supportedInterfaces
-     * @return Device
+     * @param string $interfaceKey
+     *
+     * @return bool
      */
-    public function setSupportedInterfaces(?array $supportedInterfaces): Device
+    public function doesSupportInterface(string $interfaceKey): bool
     {
-        $this->supportedInterfaces = $supportedInterfaces;
-        return $this;
+        return isset($this->supportedInterfaces[$interfaceKey]);
+    }
+
+    /**
+     * @param string $interfaceKey
+     *
+     * @return array|null
+     */
+    public function getSupportedInterfaceByKey(string $interfaceKey): ?array
+    {
+        return $this->supportedInterfaces[$interfaceKey] ?? null;
     }
 }

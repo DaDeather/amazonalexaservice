@@ -4,9 +4,6 @@ namespace DaDaDev\AmazonAlexa\Requests;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class Error
- */
 class Error
 {
     /**
@@ -22,7 +19,7 @@ class Error
     protected $message;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getType(): ?string
     {
@@ -30,30 +27,10 @@ class Error
     }
 
     /**
-     * @param null|string $type
-     * @return Error
-     */
-    public function setType(?string $type): Error
-    {
-        $this->type = $type;
-        return $this;
-    }
-
-    /**
-     * @return null|string
+     * @return string|null
      */
     public function getMessage(): ?string
     {
         return $this->message;
-    }
-
-    /**
-     * @param null|string $message
-     * @return Error
-     */
-    public function setMessage(?string $message): Error
-    {
-        $this->message = $message;
-        return $this;
     }
 }

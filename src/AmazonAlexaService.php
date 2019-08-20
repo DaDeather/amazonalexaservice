@@ -2,40 +2,29 @@
 
 namespace DaDaDev\AmazonAlexa;
 
+use DaDaDev\AmazonAlexa\Exceptions\ParseRequestException;
 use DaDaDev\AmazonAlexa\Exceptions\ValidationException;
 use DaDaDev\AmazonAlexa\Requests\LaunchRequest;
 use DaDaDev\AmazonAlexa\Responses\OutputSpeech;
 use JMS\Serializer\SerializerInterface;
 
-/**
- * Class AmazonAlexaService
- */
 class AmazonAlexaService
 {
-    /**#@+
-     * Validation information.
-     *
-     * @var string
-     */
     private const AMAZON_SUBJECT_ALTERNATIVE_NAME = 'echo-api.amazon.com';
     private const AMAZON_ALEXA_SKILL_VALIDATION_HOST = 's3.amazonaws.com';
     private const AMAZON_ALEXA_SKILL_VALIDATION_SCHEME = 'https';
     private const AMAZON_ALEXA_SKILL_VALIDATION_PATH = '/echo.api/';
-    /**#@-*/
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $alexaSkillAppId;
 
-    /**
-     * @var SerializerInterface
-     */
+    /** @var SerializerInterface */
     private $serializer;
 
     /**
-     * @param string $alexaSkillAppId
+     * @param string              $alexaSkillAppId
      * @param SerializerInterface $serializer
+     *
      * @throws \Exception
      */
     public function __construct(string $alexaSkillAppId, SerializerInterface $serializer)
@@ -49,11 +38,13 @@ class AmazonAlexaService
     }
 
     /**
-     * @param string $signatureCertChainUrl
-     * @param string $signature
-     * @param string $rawJsonRequest
+     * @param string  $signatureCertChainUrl
+     * @param string  $signature
+     * @param string  $rawJsonRequest
      * @param Request $alexaRequest
+     *
      * @return bool Returns true or throws an exception on fail
+     *
      * @throws ValidationException
      */
     public function validateIncomingRequest(
@@ -66,19 +57,34 @@ class AmazonAlexaService
             throw new ValidationException('Missing signaturecertchainurl or signature header.', 1513627426);
         }
 
-        $this->validateRequestingIp();
-        $this->validateMethod();
-        $this->validateApplicationId($alexaRequest);
-        $this->validateSignatureUrl($signatureCertChainUrl);
-        $this->validateSignature($signatureCertChainUrl, $signature, $rawJsonRequest);
-        $this->validateRequestTimestamp($alexaRequest);
+        try {
+            $this->validateRequestingIp();
+            $this->validateMethod();
+            $this->validateApplicationId($alexaRequest);
+            $this->validateSignatureUrl($signatureCertChainUrl);
+            $this->validateSignature($signatureCertChainUrl, $signature, $rawJsonRequest);
+            $this->validateRequestTimestamp($alexaRequest);
+        } catch (\Throwable $throwable) {
+            if ($throwable instanceof ValidationException) {
+                throw $throwable;
+            }
+
+            throw new ValidationException(
+                sprintf('Validation failed due to: %s', $throwable->getMessage()),
+                1566292857682,
+                $throwable
+            );
+        }
 
         return true;
     }
 
     /**
      * @param string $jsonString
+     *
      * @return Request|null
+     *
+     * @throws ParseRequestException
      */
     public function getAlexaRequest(string $jsonString): ?Request
     {
@@ -86,25 +92,29 @@ class AmazonAlexaService
             return null;
         }
 
-        $alexaRequest = json_decode($jsonString, true);
-        if ($alexaRequest) {
-            /** @var \DaDaDev\AmazonAlexa\Request $alexaRequest */
+        try {
+            /** @var \DaDaDev\AmazonAlexa\Request|null $alexaRequest */
             $alexaRequest = $this->serializer->deserialize($jsonString, Request::class, 'json');
 
-            if (!$alexaRequest) {
+            if (null === $alexaRequest) {
                 return null;
             }
 
             return $alexaRequest;
+        } catch (\Throwable $throwable) {
+            throw new ParseRequestException(
+                'Failed to parse json string into alexa object.',
+                1566291190034,
+                $throwable
+            );
         }
-
-        return null;
     }
 
     /**
-     * @param string $speechType One of the TYPE_* constants in the OutputSpeech class.
-     * @param string $message What should alexa say?
-     * @param bool $shouldEndSession Should the alexa session be closed?
+     * @param string $speechType       one of the TYPE_* constants in the OutputSpeech class
+     * @param string $message          What should alexa say?
+     * @param bool   $shouldEndSession Should the alexa session be closed?
+     *
      * @return Response
      */
     public function createOutputSpeechResponse(
@@ -115,7 +125,7 @@ class AmazonAlexaService
         $outputSpeech = (new OutputSpeech())
             ->setType($speechType);
 
-        if ($speechType === OutputSpeech::TYPE_PLAINTEXT) {
+        if (OutputSpeech::TYPE_PLAINTEXT === $speechType) {
             $outputSpeech->setText($message);
         } else {
             $outputSpeech->setSsml($message);
@@ -127,111 +137,24 @@ class AmazonAlexaService
                 ->setOutputSpeech($outputSpeech)
                 ->setShouldEndSession($shouldEndSession)
         );
+
         return $alexaResponse;
     }
 
     /**
-     * @param Request $alexaRequest
-     * @return array
-     */
-    public function getSessionVariables(Request $alexaRequest): array
-    {
-        if (!$alexaRequest->getSession()) {
-            return [];
-        }
-
-        if (!($attributes = $alexaRequest->getSession()->getAttributes())) {
-            return [];
-        }
-
-        return $attributes;
-    }
-
-    /**
-     * @param Request $alexaRequest
-     * @param string $name
-     * @param mixed|null $defaultValue
-     * @return mixed|null
-     */
-    public function getSessionVariable(Request $alexaRequest, string $name, $defaultValue = null)
-    {
-        $session = $this->getSessionVariables($alexaRequest);
-
-        if (empty($session) || !isset($session[$name])) {
-            return $defaultValue;
-        }
-
-        return $session[$name] ?? $defaultValue;
-    }
-
-    /**#@-
-     * @param Request $alexaRequest
-     * @return null|string
-     */
-    public function getRequestType(Request $alexaRequest): ?string
-    {
-        $alexaRequestData = $alexaRequest->getRequest();
-        if ($alexaRequestData) {
-            $requestType = $alexaRequestData->getType();
-
-            switch ($requestType) {
-                case LaunchRequest::TYPE_LAUNCH_REQUEST:
-                    return LaunchRequest::TYPE_LAUNCH_REQUEST;
-                case LaunchRequest::TYPE_INTENT_REQUEST:
-                    return LaunchRequest::TYPE_INTENT_REQUEST;
-                case LaunchRequest::TYPE_SESSION_ENDED_REQUEST:
-                    return LaunchRequest::TYPE_SESSION_ENDED_REQUEST;
-            }
-        }
-
-        return null;
-    }
-
-    /**#@-
-     * @param Request $alexaRequest
-     * @return null|string
-     */
-    public function getIntent(Request $alexaRequest): ?string
-    {
-        $alexaRequestData = $alexaRequest->getRequest();
-        if ($alexaRequestData) {
-            $requestedIntent = $alexaRequestData->getIntent();
-
-            if ($requestedIntent) {
-                return $requestedIntent->getName();
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * @param Request $alexaRequest
-     * @param string $intentName
-     * @param callable $callback The callback gets passed the $alexaRequest Parameter
+     * @param Request  $alexaRequest
+     * @param string   $intentName
+     * @param callable $callback     The callback gets passed the $alexaRequest Parameter
+     *
      * @return mixed|null Returns the value returned by the callback if called or null
      */
     public function handleIntentRequest(Request $alexaRequest, string $intentName, callable $callback)
     {
-        if ($this->getRequestType($alexaRequest) !== LaunchRequest::TYPE_INTENT_REQUEST) {
+        if (LaunchRequest::TYPE_INTENT_REQUEST !== $alexaRequest->getRequestType()) {
             return null;
         }
 
-        if ($this->getIntent($alexaRequest) !== $intentName) {
-            return null;
-        }
-
-        return $callback($alexaRequest);
-    }
-
-    /**
-     * @param Request $alexaRequest
-     * @param callable $callback The callback gets passed the $alexaRequest Parameter
-     * @return mixed|null Returns the value returned by the callback if called or null
-     */
-    public function handleLaunchRequest(Request $alexaRequest, callable $callback)
-    {
-        if ($this->getRequestType($alexaRequest) !== LaunchRequest::TYPE_LAUNCH_REQUEST) {
+        if ($alexaRequest->getIntent() !== $intentName) {
             return null;
         }
 
@@ -240,7 +163,8 @@ class AmazonAlexaService
 
     /**
      * @param \DaDaDev\AmazonAlexa\Request $alexaRequest
-     * @param array $intentConfiguration An array with the structure <key = string, value = callable>
+     * @param array                        $intentConfiguration An array with the structure <key = string, value = callable>
+     *
      * @return mixed|null
      */
     public function handleIntentsThroughConfiguration(Request $alexaRequest, array $intentConfiguration = [])
@@ -256,13 +180,44 @@ class AmazonAlexaService
     }
 
     /**
-     * @param Request $alexaRequest
-     * @param callable $callback The callback gets passed the $alexaRequest Parameter
+     * @param Request  $alexaRequest
+     * @param callable $callback     The callback gets passed the $alexaRequest Parameter
+     *
+     * @return mixed|null Returns the value returned by the callback if called or null
+     */
+    public function handleLaunchRequest(Request $alexaRequest, callable $callback)
+    {
+        if (LaunchRequest::TYPE_LAUNCH_REQUEST !== $alexaRequest->getRequestType()) {
+            return null;
+        }
+
+        return $callback($alexaRequest);
+    }
+
+    /**
+     * @param Request  $alexaRequest
+     * @param callable $callback     The callback gets passed the $alexaRequest Parameter
+     *
+     * @return mixed|null Returns the value returned by the callback if called or null
+     */
+    public function handleAplUserEventRequest(Request $alexaRequest, callable $callback)
+    {
+        if (LaunchRequest::TYPE_APL_USER_EVENT_REQUEST !== $alexaRequest->getRequestType()) {
+            return null;
+        }
+
+        return $callback($alexaRequest);
+    }
+
+    /**
+     * @param Request  $alexaRequest
+     * @param callable $callback     The callback gets passed the $alexaRequest Parameter
+     *
      * @return mixed|null Returns the value returned by the callback if called or null
      */
     public function handleSessionEndRequest(Request $alexaRequest, callable $callback)
     {
-        if ($this->getRequestType($alexaRequest) !== LaunchRequest::TYPE_SESSION_ENDED_REQUEST) {
+        if (LaunchRequest::TYPE_SESSION_ENDED_REQUEST !== $alexaRequest->getRequestType()) {
             return null;
         }
 
@@ -271,6 +226,7 @@ class AmazonAlexaService
 
     /**
      * @param Response $response
+     *
      * @return string
      */
     public function createJsonFromResponse(Response $response): string
@@ -278,9 +234,9 @@ class AmazonAlexaService
         return $this->serializer->serialize($response, 'json');
     }
 
-    //region Validation Functions
     /**
      * @return bool
+     *
      * @throws ValidationException
      */
     private function validateRequestingIp(): bool
@@ -294,11 +250,12 @@ class AmazonAlexaService
 
     /**
      * @return bool
+     *
      * @throws ValidationException
      */
     private function validateMethod(): bool
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        if ('GET' === $_SERVER['REQUEST_METHOD']) {
             throw new ValidationException('HTTP GET when POST was expected.', 1513625947);
         }
 
@@ -307,7 +264,9 @@ class AmazonAlexaService
 
     /**
      * @param Request $alexaRequest
+     *
      * @return bool
+     *
      * @throws ValidationException
      */
     private function validateApplicationId(Request $alexaRequest): bool
@@ -321,7 +280,9 @@ class AmazonAlexaService
 
     /**
      * @param Request $alexaRequest
+     *
      * @return bool
+     *
      * @throws ValidationException
      */
     private function validateRequestTimestamp(Request $alexaRequest): bool
@@ -340,17 +301,19 @@ class AmazonAlexaService
 
     /**
      * @param string $signatureUrl
+     *
      * @return bool
+     *
      * @throws ValidationException
      */
     private function validateSignatureUrl(string $signatureUrl): bool
     {
         $urlParts = parse_url($signatureUrl);
 
-        if ($urlParts['scheme'] !== self::AMAZON_ALEXA_SKILL_VALIDATION_SCHEME
-            || $urlParts['host'] !== self::AMAZON_ALEXA_SKILL_VALIDATION_HOST
-            || (array_key_exists('port', $urlParts) && $urlParts['port'] !== 443)
-            || strpos($urlParts['path'], self::AMAZON_ALEXA_SKILL_VALIDATION_PATH) !== 0
+        if (self::AMAZON_ALEXA_SKILL_VALIDATION_SCHEME !== $urlParts['scheme']
+            || self::AMAZON_ALEXA_SKILL_VALIDATION_HOST !== $urlParts['host']
+            || (array_key_exists('port', $urlParts) && 443 !== $urlParts['port'])
+            || 0 !== strpos($urlParts['path'], self::AMAZON_ALEXA_SKILL_VALIDATION_PATH)
         ) {
             throw new ValidationException('Wrong signature url.', 1513625947);
         }
@@ -362,7 +325,9 @@ class AmazonAlexaService
      * @param string $signatureCertChainUrl
      * @param string $signature
      * @param string $rawJson
+     *
      * @return bool
+     *
      * @throws ValidationException
      */
     private function validateSignature(
@@ -371,26 +336,25 @@ class AmazonAlexaService
         string $rawJson
     ): bool {
         $signatureCertificationFile = file_get_contents($signatureCertChainUrl);
-        $sslCheck = openssl_verify($rawJson, base64_decode($signature), $signatureCertificationFile);
-        if ($sslCheck !== 1) {
-            throw new ValidationException(openssl_error_string(). 1513626524);
+        $sslCheck = openssl_verify($rawJson, (string) base64_decode($signature), (string) $signatureCertificationFile);
+        if (1 !== $sslCheck) {
+            throw new ValidationException(openssl_error_string() . 1513626524);
         }
 
-        $parsedCertificate = openssl_x509_parse($signatureCertificationFile);
+        $parsedCertificate = openssl_x509_parse((string) $signatureCertificationFile);
         if (!$parsedCertificate) {
-            throw new ValidationException('OpenSSL x509 parsing failed.'. 1513626541);
+            throw new ValidationException('OpenSSL x509 parsing failed.' . 1513626541);
         }
 
-        if (strpos($parsedCertificate['extensions']['subjectAltName'], self::AMAZON_SUBJECT_ALTERNATIVE_NAME) === false) {
-            throw new ValidationException('OpenSSL x509 parsing failed.'. 1513626691);
+        if (false === strpos($parsedCertificate['extensions']['subjectAltName'], self::AMAZON_SUBJECT_ALTERNATIVE_NAME)) {
+            throw new ValidationException('OpenSSL x509 parsing failed.' . 1513626691);
         }
 
         $time = time();
         if (!($parsedCertificate['validFrom_time_t'] <= $time && $time <= $parsedCertificate['validTo_time_t'])) {
-            throw new ValidationException('Certification expire check failed.'. 1513626803);
+            throw new ValidationException('Certification expire check failed.' . 1513626803);
         }
 
         return true;
     }
-    //endregion
 }

@@ -4,9 +4,6 @@ namespace DaDaDev\AmazonAlexa\Requests;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class User
- */
 class User
 {
     /**
@@ -24,7 +21,7 @@ class User
     protected $accessToken;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getUserId(): ?string
     {
@@ -32,30 +29,10 @@ class User
     }
 
     /**
-     * @param null|string $userId
-     * @return User
-     */
-    public function setUserId(?string $userId): User
-    {
-        $this->userId = $userId;
-        return $this;
-    }
-
-    /**
-     * @return null|string
+     * @return string|null
      */
     public function getAccessToken(): ?string
     {
         return $this->accessToken;
-    }
-
-    /**
-     * @param null|string $accessToken
-     * @return User
-     */
-    public function setAccessToken(?string $accessToken): User
-    {
-        $this->accessToken = $accessToken;
-        return $this;
     }
 }

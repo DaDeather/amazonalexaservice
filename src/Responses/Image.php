@@ -4,9 +4,6 @@ namespace DaDaDev\AmazonAlexa\Responses;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class Image
- */
 class Image
 {
     /**
@@ -24,7 +21,7 @@ class Image
     protected $largeImageUrl;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getSmallImageUrl(): ?string
     {
@@ -32,17 +29,19 @@ class Image
     }
 
     /**
-     * @param null|string $smallImageUrl
+     * @param string|null $smallImageUrl
+     *
      * @return Image
      */
     public function setSmallImageUrl(?string $smallImageUrl): Image
     {
         $this->smallImageUrl = $smallImageUrl;
+
         return $this;
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getLargeImageUrl(): ?string
     {
@@ -50,12 +49,14 @@ class Image
     }
 
     /**
-     * @param null|string $largeImageUrl
+     * @param string|null $largeImageUrl
+     *
      * @return Image
      */
     public function setLargeImageUrl(?string $largeImageUrl): Image
     {
         $this->largeImageUrl = $largeImageUrl;
+
         return $this;
     }
 }

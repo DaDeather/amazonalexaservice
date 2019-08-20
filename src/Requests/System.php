@@ -4,9 +4,6 @@ namespace DaDaDev\AmazonAlexa\Requests;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class System
- */
 class System
 {
     /**
@@ -50,31 +47,11 @@ class System
     }
 
     /**
-     * @param Device|null $device
-     * @return System
-     */
-    public function setDevice(?Device $device): System
-    {
-        $this->device = $device;
-        return $this;
-    }
-
-    /**
      * @return Application|null
      */
     public function getApplication(): ?Application
     {
         return $this->application;
-    }
-
-    /**
-     * @param Application|null $application
-     * @return System
-     */
-    public function setApplication(?Application $application): System
-    {
-        $this->application = $application;
-        return $this;
     }
 
     /**
@@ -86,16 +63,6 @@ class System
     }
 
     /**
-     * @param User|null $user
-     * @return System
-     */
-    public function setUser(?User $user): System
-    {
-        $this->user = $user;
-        return $this;
-    }
-
-    /**
      * @return string|null
      */
     public function getApiEndpoint(): ?string
@@ -104,30 +71,10 @@ class System
     }
 
     /**
-     * @param string|null $apiEndpoint
-     * @return System
-     */
-    public function setApiEndpoint(?string $apiEndpoint): System
-    {
-        $this->apiEndpoint = $apiEndpoint;
-        return $this;
-    }
-
-    /**
      * @return string|null
      */
     public function getApiAccessToken(): ?string
     {
         return $this->apiAccessToken;
-    }
-
-    /**
-     * @param string|null $apiAccessToken
-     * @return System
-     */
-    public function setApiAccessToken(?string $apiAccessToken): System
-    {
-        $this->apiAccessToken = $apiAccessToken;
-        return $this;
     }
 }

@@ -2,11 +2,9 @@
 
 namespace DaDaDev\AmazonAlexa\Responses;
 
+use DaDaDev\AmazonAlexa\Responses\Directive\AbstractDirective;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class Response
- */
 class Response
 {
     public const DIRECTIVE_DIALOG_DELEGATE = 'Dialog.Delegate';
@@ -31,8 +29,9 @@ class Response
     protected $repromt;
 
     /**
-     * @var array|null
-     * @JMS\Type("array")
+     * @var AbstractDirective[]|null
+     * @JMS\Type("array<App\Utils\AmazonAlexa\Responses\Directive\AbstractDirective>")
+     * @JMS\SerializedName("directives")
      */
     protected $directives;
 
@@ -53,11 +52,13 @@ class Response
 
     /**
      * @param OutputSpeech|null $outputSpeech
+     *
      * @return Response
      */
     public function setOutputSpeech(?OutputSpeech $outputSpeech): Response
     {
         $this->outputSpeech = $outputSpeech;
+
         return $this;
     }
 
@@ -71,11 +72,13 @@ class Response
 
     /**
      * @param Card|null $card
+     *
      * @return Response
      */
     public function setCard(?Card $card): Response
     {
         $this->card = $card;
+
         return $this;
     }
 
@@ -89,16 +92,18 @@ class Response
 
     /**
      * @param Repromt|null $repromt
+     *
      * @return Response
      */
     public function setRepromt(?Repromt $repromt): Response
     {
         $this->repromt = $repromt;
+
         return $this;
     }
 
     /**
-     * @return array|null
+     * @return AbstractDirective[]|null
      */
     public function getDirectives(): ?array
     {
@@ -106,12 +111,14 @@ class Response
     }
 
     /**
-     * @param array|null $directives
+     * @param AbstractDirective[]|null $directives
+     *
      * @return Response
      */
     public function setDirectives(?array $directives): Response
     {
         $this->directives = $directives;
+
         return $this;
     }
 
@@ -125,11 +132,13 @@ class Response
 
     /**
      * @param bool|null $shouldEndSession
+     *
      * @return Response
      */
     public function setShouldEndSession(?bool $shouldEndSession): Response
     {
         $this->shouldEndSession = $shouldEndSession;
+
         return $this;
     }
 }

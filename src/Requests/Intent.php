@@ -4,9 +4,6 @@ namespace DaDaDev\AmazonAlexa\Requests;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class Intent
- */
 class Intent
 {
     public const CONFIRMATION_STATUS_NONE = 'NONE';
@@ -33,7 +30,7 @@ class Intent
     protected $slots;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getName(): ?string
     {
@@ -41,31 +38,11 @@ class Intent
     }
 
     /**
-     * @param null|string $name
-     * @return Intent
-     */
-    public function setName(?string $name): Intent
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    /**
-     * @return null|string
+     * @return string|null
      */
     public function getConfirmationStatus(): ?string
     {
         return $this->confirmationStatus;
-    }
-
-    /**
-     * @param null|string $confirmationStatus
-     * @return Intent
-     */
-    public function setConfirmationStatus(?string $confirmationStatus): Intent
-    {
-        $this->confirmationStatus = $confirmationStatus;
-        return $this;
     }
 
     /**
@@ -74,15 +51,5 @@ class Intent
     public function getSlots(): ?array
     {
         return $this->slots;
-    }
-
-    /**
-     * @param array|null $slots
-     * @return Intent
-     */
-    public function setSlots(?array $slots): Intent
-    {
-        $this->slots = $slots;
-        return $this;
     }
 }

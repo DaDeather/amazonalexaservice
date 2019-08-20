@@ -4,9 +4,6 @@ namespace DaDaDev\AmazonAlexa\Responses;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class OutputSpeech
- */
 class OutputSpeech
 {
     public const TYPE_PLAINTEXT = 'PlainText';
@@ -31,7 +28,7 @@ class OutputSpeech
     private $ssml;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getType(): ?string
     {
@@ -39,17 +36,19 @@ class OutputSpeech
     }
 
     /**
-     * @param null|string $type
+     * @param string|null $type
+     *
      * @return OutputSpeech
      */
     public function setType(?string $type): OutputSpeech
     {
         $this->type = $type;
+
         return $this;
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getText(): ?string
     {
@@ -57,17 +56,19 @@ class OutputSpeech
     }
 
     /**
-     * @param null|string $text
+     * @param string|null $text
+     *
      * @return OutputSpeech
      */
     public function setText(?string $text): OutputSpeech
     {
         $this->text = $text;
+
         return $this;
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getSsml(): ?string
     {
@@ -75,12 +76,14 @@ class OutputSpeech
     }
 
     /**
-     * @param null|string $ssml
+     * @param string|null $ssml
+     *
      * @return OutputSpeech
      */
     public function setSsml(?string $ssml): OutputSpeech
     {
         $this->ssml = $ssml;
+
         return $this;
     }
 }

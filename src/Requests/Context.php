@@ -4,9 +4,6 @@ namespace DaDaDev\AmazonAlexa\Requests;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class Context
- */
 class Context
 {
     /**
@@ -32,30 +29,10 @@ class Context
     }
 
     /**
-     * @param System|null $system
-     * @return Context
-     */
-    public function setSystem(?System $system): Context
-    {
-        $this->system = $system;
-        return $this;
-    }
-
-    /**
      * @return AudioPlayer|null
      */
     public function getAudioPlayer(): ?AudioPlayer
     {
         return $this->audioPlayer;
-    }
-
-    /**
-     * @param AudioPlayer|null $audioPlayer
-     * @return Context
-     */
-    public function setAudioPlayer(?AudioPlayer $audioPlayer): Context
-    {
-        $this->audioPlayer = $audioPlayer;
-        return $this;
     }
 }

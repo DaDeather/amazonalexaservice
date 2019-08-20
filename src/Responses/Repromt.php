@@ -4,9 +4,6 @@ namespace DaDaDev\AmazonAlexa\Responses;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class Repromt
- */
 class Repromt
 {
     /**
@@ -26,11 +23,13 @@ class Repromt
 
     /**
      * @param OutputSpeech|null $outputSpeech
+     *
      * @return Repromt
      */
     public function setOutputSpeech(?OutputSpeech $outputSpeech): Repromt
     {
         $this->outputSpeech = $outputSpeech;
+
         return $this;
     }
 }

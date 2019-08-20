@@ -2,12 +2,8 @@
 
 namespace DaDaDev\AmazonAlexa;
 
-use DaDaDev\AmazonAlexa\Responses;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class Response
- */
 class Response
 {
     /**
@@ -29,7 +25,7 @@ class Response
     protected $response;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getVersion(): ?string
     {
@@ -37,12 +33,14 @@ class Response
     }
 
     /**
-     * @param null|string $version
+     * @param string|null $version
+     *
      * @return Response
      */
     public function setVersion(?string $version): Response
     {
         $this->version = $version;
+
         return $this;
     }
 
@@ -56,11 +54,13 @@ class Response
 
     /**
      * @param array $sessionAttributes
+     *
      * @return Response
      */
     public function setSessionAttributes(array $sessionAttributes = []): Response
     {
         $this->sessionAttributes = $sessionAttributes;
+
         return $this;
     }
 
@@ -74,6 +74,7 @@ class Response
         }
 
         $this->sessionAttributes[$key] = $value;
+
         return $this;
     }
 
@@ -87,11 +88,13 @@ class Response
 
     /**
      * @param Responses\Response|null $response
+     *
      * @return Response
      */
     public function setResponse(?Responses\Response $response): Response
     {
         $this->response = $response;
+
         return $this;
     }
 }

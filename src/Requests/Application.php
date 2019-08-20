@@ -4,9 +4,6 @@ namespace DaDaDev\AmazonAlexa\Requests;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class Application
- */
 class Application
 {
     /**
@@ -22,15 +19,5 @@ class Application
     public function getApplicationId(): ?string
     {
         return $this->applicationId;
-    }
-
-    /**
-     * @param null|string $applicationId
-     * @return Application
-     */
-    public function setApplicationId(?string $applicationId): Application
-    {
-        $this->applicationId = $applicationId;
-        return $this;
     }
 }

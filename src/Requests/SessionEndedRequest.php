@@ -4,10 +4,7 @@ namespace DaDaDev\AmazonAlexa\Requests;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class SessionEndedRequest
- */
-class SessionEndedRequest extends IntentRequest
+class SessionEndedRequest extends AbstractRequest
 {
     /**
      * @var string|null
@@ -22,21 +19,11 @@ class SessionEndedRequest extends IntentRequest
     protected $error;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getReason(): ?string
     {
         return $this->reason;
-    }
-
-    /**
-     * @param null|string $reason
-     * @return SessionEndedRequest
-     */
-    public function setReason(?string $reason): SessionEndedRequest
-    {
-        $this->reason = $reason;
-        return $this;
     }
 
     /**
@@ -45,15 +32,5 @@ class SessionEndedRequest extends IntentRequest
     public function getError(): ?Error
     {
         return $this->error;
-    }
-
-    /**
-     * @param Error|null $error
-     * @return SessionEndedRequest
-     */
-    public function setError(?Error $error): SessionEndedRequest
-    {
-        $this->error = $error;
-        return $this;
     }
 }

@@ -4,9 +4,6 @@ namespace DaDaDev\AmazonAlexa\Requests;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class Resolution
- */
 class Resolution
 {
     /**
@@ -22,15 +19,5 @@ class Resolution
     public function getResolutionsPerAuthority(): ?array
     {
         return $this->resolutionsPerAuthority;
-    }
-
-    /**
-     * @param array|null $resolutionsPerAuthority
-     * @return Resolution
-     */
-    public function setResolutionsPerAuthority(?array $resolutionsPerAuthority): Resolution
-    {
-        $this->resolutionsPerAuthority = $resolutionsPerAuthority;
-        return $this;
     }
 }
