@@ -3,8 +3,35 @@
 use DaDaDev\AmazonAlexa\AmazonAlexaService;
 use DaDaDev\AmazonAlexa\Exceptions\ValidationException;
 use DaDaDev\AmazonAlexa\Request;
+use DaDaDev\AmazonAlexa\IntentHandling\IntentHandlerInterface;
 use DaDaDev\AmazonAlexa\Response;
+use DaDaDev\AmazonAlexa\Responses\OutputSpeech;
 use JMS\Serializer\SerializerBuilder;
+
+class SampleIntentHandler implements IntentHandlerInterface
+{
+    /** @var AmazonAlexaService */
+    private $amazonAlexaService;
+
+    public function __construct(AmazonAlexaService $amazonAlexaService)
+    {
+        $this->amazonAlexaService = $amazonAlexaService;
+    }
+
+    public function getIntentName(): string
+    {
+        return 'myIntent';
+    }
+
+    public function handleIntent(Request $request): ?Response
+    {
+        return $this->amazonAlexaService->createOutputSpeechResponse(
+            OutputSpeech::TYPE_PLAINTEXT,
+            'Hello World!',
+            true
+        );
+    }
+}
 
 $serializer = SerializerBuilder::create()->build();
 $amazonAlexaService = new AmazonAlexaService('YOUR APP ID HERE', $serializer);
@@ -28,15 +55,8 @@ try {
     ]));
 }
 
-$response = $amazonAlexaService->handleIntentsThroughConfiguration($request, [
-    'AnyIntentName' => function (Request $alexaRequest) {
-        // ... do what ever you want for the intent
-
-        // Return a or anything else you want to process further
-        $response = new Response();
-
-        return $response;
-    },
+$response = $amazonAlexaService->handleIntents($request, [
+    new SampleIntentHandler($amazonAlexaService),
 ]);
 
 if ($response) {

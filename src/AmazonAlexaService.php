@@ -4,7 +4,7 @@ namespace DaDaDev\AmazonAlexa;
 
 use DaDaDev\AmazonAlexa\Exceptions\ParseRequestException;
 use DaDaDev\AmazonAlexa\Exceptions\ValidationException;
-use DaDaDev\AmazonAlexa\Requests\RequestTypes\LaunchRequest;
+use DaDaDev\AmazonAlexa\IntentHandling\IntentHandlerInterface;
 use DaDaDev\AmazonAlexa\Responses\OutputSpeech;
 use JMS\Serializer\SerializerInterface;
 
@@ -142,86 +142,36 @@ class AmazonAlexaService
     }
 
     /**
-     * @param Request  $alexaRequest
-     * @param string   $intentName
-     * @param callable $callback     The callback gets passed the $alexaRequest Parameter
+     * @param Request                $alexaRequest
+     * @param IntentHandlerInterface $intentHandler
      *
-     * @return mixed|null Returns the value returned by the callback if called or null
+     * @return Response|null Returns the value returned by the callback if called or null
      */
-    public function handleIntentRequest(Request $alexaRequest, string $intentName, callable $callback)
+    public function handleIntentRequest(Request $alexaRequest, IntentHandlerInterface $intentHandler): ?Response
     {
-        if (LaunchRequest::TYPE_INTENT_REQUEST !== $alexaRequest->getRequestType()) {
+        if ($intentHandler->getIntentName() !== $alexaRequest->getRequestType()) {
             return null;
         }
 
-        if ($alexaRequest->getIntent() !== $intentName) {
-            return null;
-        }
-
-        return $callback($alexaRequest);
+        return $intentHandler->handleIntent($alexaRequest);
     }
 
     /**
-     * @param Request $alexaRequest
-     * @param array   $intentConfiguration An array with the structure <key = string, value = callable>
+     * @param Request                  $alexaRequest
+     * @param IntentHandlerInterface[] $intentHandlers
      *
-     * @return mixed|null
+     * @return Response|null
      */
-    public function handleIntentsThroughConfiguration(Request $alexaRequest, array $intentConfiguration = [])
+    public function handleIntents(Request $alexaRequest, array $intentHandlers = []): ?Response
     {
-        foreach ($intentConfiguration as $intentName => $intentCallback) {
-            $intentResponse = $this->handleIntentRequest($alexaRequest, $intentName, $intentCallback);
+        foreach ($intentHandlers as $intentHandler) {
+            $intentResponse = $this->handleIntentRequest($alexaRequest, $intentHandler);
             if ($intentResponse) {
                 return $intentResponse;
             }
         }
 
         return null;
-    }
-
-    /**
-     * @param Request  $alexaRequest
-     * @param callable $callback     The callback gets passed the $alexaRequest Parameter
-     *
-     * @return mixed|null Returns the value returned by the callback if called or null
-     */
-    public function handleLaunchRequest(Request $alexaRequest, callable $callback)
-    {
-        if (LaunchRequest::TYPE_LAUNCH_REQUEST !== $alexaRequest->getRequestType()) {
-            return null;
-        }
-
-        return $callback($alexaRequest);
-    }
-
-    /**
-     * @param Request  $alexaRequest
-     * @param callable $callback     The callback gets passed the $alexaRequest Parameter
-     *
-     * @return mixed|null Returns the value returned by the callback if called or null
-     */
-    public function handleAplUserEventRequest(Request $alexaRequest, callable $callback)
-    {
-        if (LaunchRequest::TYPE_APL_USER_EVENT_REQUEST !== $alexaRequest->getRequestType()) {
-            return null;
-        }
-
-        return $callback($alexaRequest);
-    }
-
-    /**
-     * @param Request  $alexaRequest
-     * @param callable $callback     The callback gets passed the $alexaRequest Parameter
-     *
-     * @return mixed|null Returns the value returned by the callback if called or null
-     */
-    public function handleSessionEndRequest(Request $alexaRequest, callable $callback)
-    {
-        if (LaunchRequest::TYPE_SESSION_ENDED_REQUEST !== $alexaRequest->getRequestType()) {
-            return null;
-        }
-
-        return $callback($alexaRequest);
     }
 
     /**

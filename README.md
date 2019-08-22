@@ -16,12 +16,47 @@ $amazonAlexaService = new \DaDaDev\AmazonAlexa\AmazonAlexaService('YOUR APP ID H
 
 Full Example:
 ```
-$serializer = \JMS\Serializer\SerializerBuilder::create()->build();
-$amazonAlexaService = new \DaDaDev\AmazonAlexa\AmazonAlexaService('YOUR APP ID HERE', $serializer);
- 
+<?php
+
+use DaDaDev\AmazonAlexa\AmazonAlexaService;
+use DaDaDev\AmazonAlexa\Exceptions\ValidationException;
+use DaDaDev\AmazonAlexa\Request;
+use DaDaDev\AmazonAlexa\IntentHandling\IntentHandlerInterface;
+use DaDaDev\AmazonAlexa\Response;
+use DaDaDev\AmazonAlexa\Responses\OutputSpeech;
+use JMS\Serializer\SerializerBuilder;
+
+class SampleIntentHandler implements IntentHandlerInterface
+{
+    /** @var AmazonAlexaService */
+    private $amazonAlexaService;
+
+    public function __construct(AmazonAlexaService $amazonAlexaService)
+    {
+        $this->amazonAlexaService = $amazonAlexaService;
+    }
+
+    public function getIntentName(): string
+    {
+        return 'myIntent';
+    }
+
+    public function handleIntent(Request $request): ?Response
+    {
+        return $this->amazonAlexaService->createOutputSpeechResponse(
+            OutputSpeech::TYPE_PLAINTEXT,
+            'Hello World!',
+            true
+        );
+    }
+}
+
+$serializer = SerializerBuilder::create()->build();
+$amazonAlexaService = new AmazonAlexaService('YOUR APP ID HERE', $serializer);
+
 $jsonRequest = file_get_contents('php://input');
 $request = $amazonAlexaService->getAlexaRequest($jsonRequest);
- 
+
 try {
     $amazonAlexaService->validateIncomingRequest(
         $_SERVER['HTTP_SIGNATURECERTCHAINURL'],
@@ -29,7 +64,7 @@ try {
         $jsonRequest,
         $request
     );
-} catch (\Exception | \DaDaDev\AmazonAlexa\Exceptions\ValidationException $exception) {
+} catch (\Exception | ValidationException $exception) {
     http_response_code(404);
     exit(json_encode([
         'status' => 'failed',
@@ -37,23 +72,17 @@ try {
         'code' => $exception->getCode(),
     ]));
 }
- 
-$response = $amazonAlexaService->handleIntentsThroughConfiguration($request, [
-    'AnyIntentName' => function (\DaDaDev\AmazonAlexa\Request $alexaRequest) {
-        // ... do what ever you want for the intent
-        
-        // Return a or anything else you want to process further
-        $response = new \DaDaDev\AmazonAlexa\Response();
-        return $response;
-    },
+
+$response = $amazonAlexaService->handleIntents($request, [
+    new SampleIntentHandler($amazonAlexaService),
 ]);
- 
+
 if ($response) {
     header('Content-Type: application/json');
     echo $amazonAlexaService->createJsonFromResponse($response);
     exit();
 }
- 
+
 http_response_code(404);
 exit(json_encode([
     'status' => 'failed',
