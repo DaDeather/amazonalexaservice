@@ -4,6 +4,7 @@ namespace DaDaDev\AmazonAlexa\Requests\RequestTypes;
 
 use DaDaDev\AmazonAlexa\Requests\AbstractRequest;
 use DaDaDev\AmazonAlexa\Requests\RequestTypes\AplUserEventElements\EventSource;
+use DaDaDev\AmazonAlexa\Requests\RequestTypes\AplUserEventElements\NullEventSource;
 use JMS\Serializer\Annotation as JMS;
 
 class AplUserEventRequest extends AbstractRequest
@@ -23,11 +24,19 @@ class AplUserEventRequest extends AbstractRequest
     protected $components;
 
     /**
-     * @var EventSource|null
+     * @var EventSource
      * @JMS\Type("DaDaDev\AmazonAlexa\Requests\RequestTypes\AplUserEventElements\EventSource")
      * @JMS\SerializedName("source")
      */
     protected $source;
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return self::TYPE_APL_USER_EVENT_REQUEST;
+    }
 
     /**
      * @return string[]|null
@@ -56,10 +65,10 @@ class AplUserEventRequest extends AbstractRequest
     }
 
     /**
-     * @return EventSource|null
+     * @return EventSource
      */
-    public function getSource(): ?EventSource
+    public function getSource(): EventSource
     {
-        return $this->source;
+        return $this->source ?? new NullEventSource();
     }
 }

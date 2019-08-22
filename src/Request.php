@@ -4,7 +4,10 @@ namespace DaDaDev\AmazonAlexa;
 
 use DaDaDev\AmazonAlexa\Requests\AbstractRequest;
 use DaDaDev\AmazonAlexa\Requests\Context;
+use DaDaDev\AmazonAlexa\Requests\NullContext;
+use DaDaDev\AmazonAlexa\Requests\NullSession;
 use DaDaDev\AmazonAlexa\Requests\RequestTypes\IntentRequest;
+use DaDaDev\AmazonAlexa\Requests\RequestTypes\NullRequest;
 use DaDaDev\AmazonAlexa\Requests\Session;
 use JMS\Serializer\Annotation as JMS;
 
@@ -17,19 +20,19 @@ class Request
     protected $version;
 
     /**
-     * @var Session|null
+     * @var Session
      * @JMS\Type("DaDaDev\AmazonAlexa\Requests\Session")
      */
     protected $session;
 
     /**
-     * @var Context|null
+     * @var Context
      * @JMS\Type("DaDaDev\AmazonAlexa\Requests\Context")
      */
     protected $context;
 
     /**
-     * @var AbstractRequest|null
+     * @var AbstractRequest
      * @JMS\Type("DaDaDev\AmazonAlexa\Requests\AbstractRequest")
      */
     protected $request;
@@ -43,27 +46,27 @@ class Request
     }
 
     /**
-     * @return Session|null
+     * @return Session
      */
-    public function getSession(): ?Session
+    public function getSession(): Session
     {
-        return $this->session;
+        return $this->session ?? new NullSession();
     }
 
     /**
-     * @return Context|null
+     * @return Context
      */
-    public function getContext(): ?Context
+    public function getContext(): Context
     {
-        return $this->context;
+        return $this->context ?? new NullContext();
     }
 
     /**
-     * @return AbstractRequest|null
+     * @return AbstractRequest
      */
-    public function getRequest(): ?AbstractRequest
+    public function getRequest(): AbstractRequest
     {
-        return $this->request;
+        return $this->request ?? new NullRequest();
     }
 
     /**
@@ -72,10 +75,6 @@ class Request
     public function getSessionVariables(): array
     {
         $alexaSession = $this->getSession();
-        if (!$alexaSession) {
-            return [];
-        }
-
         if (!($attributes = $alexaSession->getAttributes())) {
             return [];
         }
@@ -100,32 +99,22 @@ class Request
         return $session[$name] ?? $defaultValue;
     }
 
-    /**#@-
-     * @return null|string
+    /**
+     * @return string
      */
-    public function getRequestType(): ?string
+    public function getRequestType(): string
     {
-        $alexaRequestData = $this->getRequest();
-        if ($alexaRequestData) {
-            return $alexaRequestData->getType();
-        }
-
-        return null;
+        return $this->getRequest()->getType();
     }
 
-    /**#@-
-     * @return null|string
+    /**
+     * @return string|null
      */
     public function getIntent(): ?string
     {
         $alexaRequestData = $this->getRequest();
-
-        if ($alexaRequestData && $alexaRequestData instanceof IntentRequest) {
-            $requestedIntent = $alexaRequestData->getIntent();
-
-            if ($requestedIntent) {
-                return $requestedIntent->getName();
-            }
+        if ($alexaRequestData instanceof IntentRequest) {
+            return $alexaRequestData->getIntent()->getName();
         }
 
         return null;

@@ -3,38 +3,40 @@
 namespace DaDaDev\AmazonAlexa\Requests;
 
 use DaDaDev\AmazonAlexa\Requests\ContextElements\AudioPlayer;
+use DaDaDev\AmazonAlexa\Requests\ContextElements\NullAudioPlayer;
+use DaDaDev\AmazonAlexa\Requests\ContextElements\NullSystem;
 use DaDaDev\AmazonAlexa\Requests\ContextElements\System;
 use JMS\Serializer\Annotation as JMS;
 
 class Context
 {
     /**
-     * @var System|null
+     * @var System
      * @JMS\Type("DaDaDev\AmazonAlexa\Requests\ContextElements\System")
      * @JMS\SerializedName("System")
      */
     protected $system;
 
     /**
-     * @var AudioPlayer|null
+     * @var AudioPlayer
      * @JMS\Type("DaDaDev\AmazonAlexa\Requests\ContextElements\AudioPlayer")
      * @JMS\SerializedName("AudioPlayer")
      */
     protected $audioPlayer;
 
     /**
-     * @return System|null
+     * @return System
      */
-    public function getSystem(): ?System
+    public function getSystem(): System
     {
-        return $this->system;
+        return $this->system ?? new NullSystem();
     }
 
     /**
-     * @return AudioPlayer|null
+     * @return AudioPlayer
      */
-    public function getAudioPlayer(): ?AudioPlayer
+    public function getAudioPlayer(): AudioPlayer
     {
-        return $this->audioPlayer;
+        return $this->audioPlayer ?? new NullAudioPlayer();
     }
 }

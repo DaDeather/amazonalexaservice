@@ -2,10 +2,6 @@
 
 namespace DaDaDev\AmazonAlexa\Requests;
 
-use DaDaDev\AmazonAlexa\Requests\RequestTypes\AplUserEventRequest;
-use DaDaDev\AmazonAlexa\Requests\RequestTypes\IntentRequest;
-use DaDaDev\AmazonAlexa\Requests\RequestTypes\LaunchRequest;
-use DaDaDev\AmazonAlexa\Requests\RequestTypes\SessionEndedRequest;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -65,24 +61,7 @@ abstract class AbstractRequest
     /**
      * @return string
      */
-    public function getType(): string
-    {
-        switch (get_class($this)) {
-            case LaunchRequest::class:
-                return self::TYPE_LAUNCH_REQUEST;
-            case IntentRequest::class:
-                return self::TYPE_INTENT_REQUEST;
-            case SessionEndedRequest::class:
-                return self::TYPE_SESSION_ENDED_REQUEST;
-            case AplUserEventRequest::class:
-                return self::TYPE_APL_USER_EVENT_REQUEST;
-            default:
-                throw new \RuntimeException(
-                    'The type does not correspond to the defined discrimination!',
-                    1566285605173
-                );
-        }
-    }
+    abstract public function getType(): string;
 
     /**
      * @return string|null

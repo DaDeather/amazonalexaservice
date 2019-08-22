@@ -93,7 +93,7 @@ class AmazonAlexaService
         }
 
         try {
-            /** @var \DaDaDev\AmazonAlexa\Request|null $alexaRequest */
+            /** @var Request|null $alexaRequest */
             $alexaRequest = $this->serializer->deserialize($jsonString, Request::class, 'json');
 
             if (null === $alexaRequest) {
@@ -162,8 +162,8 @@ class AmazonAlexaService
     }
 
     /**
-     * @param \DaDaDev\AmazonAlexa\Request $alexaRequest
-     * @param array                        $intentConfiguration An array with the structure <key = string, value = callable>
+     * @param Request $alexaRequest
+     * @param array   $intentConfiguration An array with the structure <key = string, value = callable>
      *
      * @return mixed|null
      */
@@ -287,7 +287,7 @@ class AmazonAlexaService
      */
     private function validateRequestTimestamp(Request $alexaRequest): bool
     {
-        if (null === $alexaRequest->getRequest() || null === $alexaRequest->getRequest()->getTimestamp()) {
+        if (null === $alexaRequest->getRequest()->getTimestamp()) {
             throw new ValidationException('Missing timestamp.', 1513627010);
         }
 

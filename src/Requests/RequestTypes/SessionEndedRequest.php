@@ -4,6 +4,7 @@ namespace DaDaDev\AmazonAlexa\Requests\RequestTypes;
 
 use DaDaDev\AmazonAlexa\Requests\AbstractRequest;
 use DaDaDev\AmazonAlexa\Requests\RequestTypes\SessionEndedElements\Error;
+use DaDaDev\AmazonAlexa\Requests\RequestTypes\SessionEndedElements\NullError;
 use JMS\Serializer\Annotation as JMS;
 
 class SessionEndedRequest extends AbstractRequest
@@ -15,10 +16,18 @@ class SessionEndedRequest extends AbstractRequest
     protected $reason;
 
     /**
-     * @var Error|null
+     * @var Error
      * @JMS\Type("DaDaDev\AmazonAlexa\Requests\RequestTypes\SessionEndedElements\Error")
      */
     protected $error;
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return self::TYPE_SESSION_ENDED_REQUEST;
+    }
 
     /**
      * @return string|null
@@ -29,10 +38,10 @@ class SessionEndedRequest extends AbstractRequest
     }
 
     /**
-     * @return Error|null
+     * @return Error
      */
-    public function getError(): ?Error
+    public function getError(): Error
     {
-        return $this->error;
+        return $this->error ?? new NullError();
     }
 }

@@ -6,13 +6,9 @@ use JMS\Serializer\Annotation as JMS;
 
 class Slot
 {
-    /**#@+
-     * @var string
-     */
     public const CONFIRMATION_STATUS_NONE = 'NONE';
     public const CONFIRMATION_STATUS_CONFIRMED = 'CONFIRMED';
     public const CONFIRMATION_STATUS_DENIED = 'DENIED';
-    /**#@-*/
 
     /**
      * @var string|null
@@ -33,7 +29,7 @@ class Slot
     protected $confirmationStatus;
 
     /**
-     * @var Resolution|null
+     * @var Resolution
      * @JMS\Type("DaDaDev\AmazonAlexa\Requests\RequestTypes\IntentElements\Resolution")
      */
     protected $resolutions;
@@ -63,10 +59,10 @@ class Slot
     }
 
     /**
-     * @return Resolution|null
+     * @return Resolution
      */
-    public function getResolutions(): ?Resolution
+    public function getResolutions(): Resolution
     {
-        return $this->resolutions;
+        return $this->resolutions ?? new NullResolution();
     }
 }

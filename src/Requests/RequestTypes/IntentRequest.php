@@ -4,6 +4,7 @@ namespace DaDaDev\AmazonAlexa\Requests\RequestTypes;
 
 use DaDaDev\AmazonAlexa\Requests\AbstractRequest;
 use DaDaDev\AmazonAlexa\Requests\RequestTypes\IntentElements\Intent;
+use DaDaDev\AmazonAlexa\Requests\RequestTypes\IntentElements\NullIntent;
 use JMS\Serializer\Annotation as JMS;
 
 class IntentRequest extends AbstractRequest
@@ -20,17 +21,25 @@ class IntentRequest extends AbstractRequest
     protected $dialogState;
 
     /**
-     * @var Intent|null
+     * @var Intent
      * @JMS\Type("DaDaDev\AmazonAlexa\Requests\RequestTypes\IntentElements\Intent")
      */
     protected $intent;
 
     /**
-     * @return Intent|null
+     * @return string
      */
-    public function getIntent(): ?Intent
+    public function getType(): string
     {
-        return $this->intent;
+        return self::TYPE_INTENT_REQUEST;
+    }
+
+    /**
+     * @return Intent
+     */
+    public function getIntent(): Intent
+    {
+        return $this->intent ?? new NullIntent();
     }
 
     /**

@@ -3,6 +3,8 @@
 namespace DaDaDev\AmazonAlexa\Requests;
 
 use DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\Application;
+use DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\NullApplication;
+use DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\NullUser;
 use DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\User;
 use JMS\Serializer\Annotation as JMS;
 
@@ -22,7 +24,7 @@ class Session
     protected $sessionId;
 
     /**
-     * @var Application|null
+     * @var Application
      * @JMS\Type("DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\Application")
      */
     protected $application;
@@ -34,7 +36,7 @@ class Session
     protected $attributes;
 
     /**
-     * @var User|null
+     * @var User
      * @JMS\Type("DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\User")
      */
     protected $user;
@@ -56,11 +58,11 @@ class Session
     }
 
     /**
-     * @return Application|null
+     * @return Application
      */
-    public function getApplication(): ?Application
+    public function getApplication(): Application
     {
-        return $this->application;
+        return $this->application ?? new NullApplication();
     }
 
     /**
@@ -72,10 +74,10 @@ class Session
     }
 
     /**
-     * @return User|null
+     * @return User
      */
-    public function getUser(): ?User
+    public function getUser(): User
     {
-        return $this->user;
+        return $this->user ?? new NullUser();
     }
 }

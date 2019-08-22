@@ -13,7 +13,7 @@ class ResolutionPerAuthority
     protected $authority;
 
     /**
-     * @var Status|null
+     * @var Status
      * @JMS\Type("DaDaDev\AmazonAlexa\Requests\RequestTypes\IntentElements\Status")
      */
     protected $status;
@@ -33,11 +33,11 @@ class ResolutionPerAuthority
     }
 
     /**
-     * @return Status|null
+     * @return Status
      */
-    public function getStatus(): ?Status
+    public function getStatus(): Status
     {
-        return $this->status;
+        return $this->status ?? new NullStatus();
     }
 
     /**

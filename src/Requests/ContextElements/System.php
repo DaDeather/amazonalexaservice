@@ -4,25 +4,28 @@ namespace DaDaDev\AmazonAlexa\Requests\ContextElements;
 
 use DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\Application;
 use DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\Device;
+use DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\NullApplication;
+use DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\NullDevice;
+use DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\NullUser;
 use DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\User;
 use JMS\Serializer\Annotation as JMS;
 
 class System
 {
     /**
-     * @var Device|null
+     * @var Device
      * @JMS\Type("DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\Device")
      */
     private $device;
 
     /**
-     * @var Application|null
+     * @var Application
      * @JMS\Type("DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\Application")
      */
     private $application;
 
     /**
-     * @var User|null
+     * @var User
      * @JMS\Type("DaDaDev\AmazonAlexa\Requests\ContextElements\SystemElements\User")
      */
     private $user;
@@ -42,27 +45,27 @@ class System
     private $apiAccessToken;
 
     /**
-     * @return Device|null
+     * @return Device
      */
-    public function getDevice(): ?Device
+    public function getDevice(): Device
     {
-        return $this->device;
+        return $this->device ?? new NullDevice();
     }
 
     /**
-     * @return Application|null
+     * @return Application
      */
-    public function getApplication(): ?Application
+    public function getApplication(): Application
     {
-        return $this->application;
+        return $this->application ?? new NullApplication();
     }
 
     /**
-     * @return User|null
+     * @return User
      */
-    public function getUser(): ?User
+    public function getUser(): User
     {
-        return $this->user;
+        return $this->user ?? new NullUser();
     }
 
     /**
