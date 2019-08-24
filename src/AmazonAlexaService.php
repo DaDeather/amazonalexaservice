@@ -87,7 +87,7 @@ class AmazonAlexaService
      * @param Request                $alexaRequest
      * @param IntentHandlerInterface $intentHandler
      *
-     * @return Response|null Returns the value returned by the callback if called or null
+     * @return Response|null returns the value returned by the handleIntend method of the intent handler if called or null
      */
     public function handleIntentRequest(Request $alexaRequest, IntentHandlerInterface $intentHandler): ?Response
     {
@@ -120,7 +120,7 @@ class AmazonAlexaService
      * @param Request                 $alexaRequest
      * @param RequestHandlerInterface $requestHandler
      *
-     * @return mixed|null Returns the value returned by the callback if called or null
+     * @return mixed|null returns the value returned by the handleRequest method of the request handler if called or null
      */
     public function handleRequest(Request $alexaRequest, RequestHandlerInterface $requestHandler)
     {
@@ -129,6 +129,24 @@ class AmazonAlexaService
         }
 
         return $requestHandler->handleRequest($alexaRequest);
+    }
+
+    /**
+     * @param Request                 $alexaRequest
+     * @param RequestHandlerInterface ...$requestHandlers
+     *
+     * @return mixed|null
+     */
+    public function handleRequests(Request $alexaRequest, RequestHandlerInterface ...$requestHandlers)
+    {
+        foreach ($requestHandlers as $requestHandler) {
+            $requestResponse = $this->handleRequest($alexaRequest, $requestHandler);
+            if ($requestResponse) {
+                return $requestResponse;
+            }
+        }
+
+        return null;
     }
 
     /**
