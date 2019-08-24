@@ -7,6 +7,7 @@ use JMS\Serializer\Annotation as JMS;
 abstract class AbstractDirective
 {
     public const TYPE_APL_RENDER_DOCUMENT = 'Alexa.Presentation.APL.RenderDocument';
+    public const TYPE_APL_EXECUTE_COMMANDS = 'Alexa.Presentation.APL.ExecuteCommands';
 
     /**
      * @var string|null
@@ -35,7 +36,7 @@ abstract class AbstractDirective
      *
      * @return $this
      */
-    public function setType(?string $type): self
+    protected function setType(?string $type): self
     {
         $this->type = $type;
 

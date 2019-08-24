@@ -22,6 +22,11 @@ class AplRenderDocumentDirective extends AbstractDirective
      */
     protected $dataSources;
 
+    public function __construct()
+    {
+        $this->setType(self::TYPE_APL_RENDER_DOCUMENT);
+    }
+
     /**
      * @return AplDocument|null
      */
