@@ -7,6 +7,13 @@ use JMS\Serializer\Annotation as JMS;
 class ScrollView extends BasicItem
 {
     /**
+     * @var string
+     * @JMS\Type("string")
+     * @JMS\SerializedName("type")
+     */
+    protected $type = 'ScrollView';
+
+    /**
      * @var BasicItem[]|null
      * @JMS\Type("array<DaDaDev\AmazonAlexa\Responses\Directive\AplRenderDocument\DocumentElement\TemplateItem\BasicItem>")
      * @JMS\SerializedName("items")

@@ -10,6 +10,9 @@ class BasicItem
     public const DISPLAY_INVISIBLE = 'invisible';
     public const DISPLAY_NORMAL = 'normal';
 
+    public const POSITION_ABSOLUTE = 'absolute';
+    public const POSITION_RELATIVE = 'relative';
+
     /**
      * @var string|null
      * @JMS\Type("string")
