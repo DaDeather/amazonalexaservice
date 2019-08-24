@@ -132,7 +132,7 @@ class AmazonAlexaService
      */
     public function handleRequest(Request $alexaRequest, RequestHandlerInterface $requestHandler)
     {
-        if ($requestHandler->canFulfilRequestedRequestType($alexaRequest)) {
+        if (!$requestHandler->canFulfilRequestedRequestType($alexaRequest)) {
             return null;
         }
 
