@@ -6,7 +6,6 @@ use DaDaDev\AmazonAlexa\AmazonAlexaService;
 use DaDaDev\AmazonAlexa\Request;
 use DaDaDev\AmazonAlexa\RequestHandling\AbstractIntentHandler;
 use DaDaDev\AmazonAlexa\Response;
-use DaDaDev\AmazonAlexa\Responses\OutputSpeech;
 
 class SomeIntentHandler extends AbstractIntentHandler
 {
@@ -25,10 +24,6 @@ class SomeIntentHandler extends AbstractIntentHandler
 
     public function handleIntent(Request $request): ?Response
     {
-        return $this->amazonAlexaService->createOutputSpeechResponse(
-            OutputSpeech::TYPE_PLAINTEXT,
-            'Hello World!',
-            true
-        );
+        return $this->amazonAlexaService->createOutputSpeechResponse('Hello World!');
     }
 }

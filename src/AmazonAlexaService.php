@@ -60,13 +60,23 @@ class AmazonAlexaService
      * @return Response
      */
     public function createOutputSpeechResponse(
-        string $speechType,
         string $message,
-        bool $shouldEndSession = false
+        string $speechType = OutputSpeech::TYPE_PLAINTEXT,
+        bool $shouldEndSession = true
     ): Response {
-        $outputSpeech = (new OutputSpeech())
-            ->setType($speechType);
+        if (OutputSpeech::TYPE_PLAINTEXT !== $speechType && OutputSpeech::TYPE_SSML !== $speechType) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Given speech type "%s" is not valid. Valid types are "%s" or "%s"',
+                    $speechType,
+                    OutputSpeech::TYPE_PLAINTEXT,
+                    OutputSpeech::TYPE_SSML
+                ),
+                1566655200319
+            );
+        }
 
+        $outputSpeech = new OutputSpeech();
         if (OutputSpeech::TYPE_PLAINTEXT === $speechType) {
             $outputSpeech->setText($message);
         } else {
@@ -74,13 +84,11 @@ class AmazonAlexaService
         }
 
         $alexaResponse = new Response();
-        $alexaResponse->setResponse(
-            (new Responses\Response())
-                ->setOutputSpeech($outputSpeech)
-                ->setShouldEndSession($shouldEndSession)
-        );
+        $alexaResponseObject = new \DaDaDev\AmazonAlexa\Responses\Response();
+        $alexaResponseObject->setOutputSpeech($outputSpeech);
+        $alexaResponseObject->setShouldEndSession($shouldEndSession);
 
-        return $alexaResponse;
+        return $alexaResponse->setResponse($alexaResponseObject);
     }
 
     /**

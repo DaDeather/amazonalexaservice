@@ -5,7 +5,6 @@ use DaDaDev\AmazonAlexa\Exceptions\ValidationException;
 use DaDaDev\AmazonAlexa\Request;
 use DaDaDev\AmazonAlexa\RequestHandling\AbstractIntentHandler;
 use DaDaDev\AmazonAlexa\Response;
-use DaDaDev\AmazonAlexa\Responses\OutputSpeech;
 use DaDaDev\AmazonAlexa\Service\RequestValidationService;
 use JMS\Serializer\SerializerBuilder;
 
@@ -26,11 +25,7 @@ class SampleIntentHandler extends AbstractIntentHandler
 
     public function handleIntent(Request $request): ?Response
     {
-        return $this->amazonAlexaService->createOutputSpeechResponse(
-            OutputSpeech::TYPE_PLAINTEXT,
-            'Hello World!',
-            true
-        );
+        return $this->amazonAlexaService->createOutputSpeechResponse('Hello World!');
     }
 }
 

@@ -36,18 +36,6 @@ class OutputSpeech
     }
 
     /**
-     * @param string|null $type
-     *
-     * @return OutputSpeech
-     */
-    public function setType(?string $type): OutputSpeech
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
      * @return string|null
      */
     public function getText(): ?string
@@ -63,6 +51,7 @@ class OutputSpeech
     public function setText(?string $text): OutputSpeech
     {
         $this->text = $text;
+        $this->type = self::TYPE_PLAINTEXT;
 
         return $this;
     }
@@ -83,6 +72,7 @@ class OutputSpeech
     public function setSsml(?string $ssml): OutputSpeech
     {
         $this->ssml = $ssml;
+        $this->type = self::TYPE_SSML;
 
         return $this;
     }
