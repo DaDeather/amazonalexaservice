@@ -30,7 +30,7 @@ class Response
 
     /**
      * @var AbstractDirective[]|null
-     * @JMS\Type("array<App\Utils\AmazonAlexa\Responses\Directive\AbstractDirective>")
+     * @JMS\Type("array<DaDaDev\AmazonAlexa\Responses\Directive\AbstractDirective>")
      * @JMS\SerializedName("directives")
      */
     protected $directives;

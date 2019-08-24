@@ -10,14 +10,14 @@ class AplRenderDocumentDirective extends AbstractDirective
 {
     /**
      * @var AplDocument|null
-     * @JMS\Type("App\Utils\AmazonAlexa\Responses\Directive\AplRenderDocument\AplDocument")
+     * @JMS\Type("DaDaDev\AmazonAlexa\Responses\Directive\AplRenderDocument\AplDocument")
      * @JMS\SerializedName("document")
      */
     protected $document;
 
     /**
-     * @var array|null
-     * @JMS\Type("array<string, App\Utils\AmazonAlexa\Responses\Directive\AplRenderDocument\DataSource>")
+     * @var DataSource[]|null
+     * @JMS\Type("array<string, DaDaDev\AmazonAlexa\Responses\Directive\AplRenderDocument\DataSource>")
      * @JMS\SerializedName("datasources")
      */
     protected $dataSources;

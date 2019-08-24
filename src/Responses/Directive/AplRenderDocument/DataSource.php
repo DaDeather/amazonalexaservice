@@ -36,7 +36,7 @@ class DataSource
 
     /**
      * @var DataSourceTransformer[]|null
-     * @JMS\Type("array<App\Utils\AmazonAlexa\Responses\Directive\AplRenderDocument\DataSourceTransformer>")
+     * @JMS\Type("array<DaDaDev\AmazonAlexa\Responses\Directive\AplRenderDocument\DataSourceTransformer>")
      * @JMS\SerializedName("transformers")
      */
     protected $transformers;

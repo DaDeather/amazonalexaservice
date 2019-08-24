@@ -71,7 +71,7 @@ class AplDocument
 
     /**
      * @var AplImport[]|null
-     * @JMS\Type("array<App\Utils\AmazonAlexa\Responses\Directive\AplRenderDocument\DocumentElement\AplImport>")
+     * @JMS\Type("array<DaDaDev\AmazonAlexa\Responses\Directive\AplRenderDocument\DocumentElement\AplImport>")
      * @JMS\SerializedName("import")
      */
     protected $import;
