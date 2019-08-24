@@ -1,6 +1,6 @@
 <?php
 
-namespace DaDaDev\AmazonAlexaTests\Requests\StructureTests;
+namespace DaDaDev\AmazonAlexaTests\Unit\Requests\StructureTests;
 
 use DaDaDev\AmazonAlexa\AmazonAlexaService;
 use Doctrine\Common\Annotations\AnnotationRegistry;
@@ -10,8 +10,6 @@ use PHPUnit\Framework\TestCase;
 
 class RequestContainsInterfaceTest extends TestCase
 {
-    private const SOME_APP_ID = 'someAppId';
-
     /** @var SerializerInterface */
     private $serializer;
 
@@ -27,7 +25,7 @@ class RequestContainsInterfaceTest extends TestCase
         $jsonRequest = file_get_contents(__DIR__ . '/Fixtures/apl_launch_request.json');
         self::assertNotFalse($jsonRequest);
 
-        $amazonAlexaService = new AmazonAlexaService(self::SOME_APP_ID, $this->serializer);
+        $amazonAlexaService = new AmazonAlexaService($this->serializer);
         $request = $amazonAlexaService->getAlexaRequest($jsonRequest);
 
         self::assertNotEmpty($request->getContext()->getSystem()->getDevice()->getSupportedInterfaces());

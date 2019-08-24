@@ -65,9 +65,12 @@ class Response
     }
 
     /**
+     * @param string $key
+     * @param mixed  $value
+     *
      * @return Response
      */
-    public function addSessionAttribute($key, $value): Response
+    public function addSessionAttribute(string $key, $value): Response
     {
         if (!$this->sessionAttributes) {
             $this->sessionAttributes = [];

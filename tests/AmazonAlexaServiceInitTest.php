@@ -26,28 +26,10 @@ class AmazonAlexaServiceInitTest extends TestCase
             ->getMock();
     }
 
-    public function testSuccessfullServiceInitializing(): void
+    public function testSuccessfulServiceInitializing(): void
     {
-        $sut = new AmazonAlexaService(self::SOME_APP_ID, $this->serializer);
+        $sut = new AmazonAlexaService($this->serializer);
 
         self::assertInstanceOf(AmazonAlexaService::class, $sut);
-    }
-
-    public function testFailingServiceInitializingEmptyAppId(): void
-    {
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('Please provide a valid alexa skill app id.');
-        $this->expectExceptionCode(1544878800);
-
-        $sut = new AmazonAlexaService('', $this->serializer);
-    }
-
-    public function testFailingServiceInitializingWhitespacedAppId(): void
-    {
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('Please provide a valid alexa skill app id.');
-        $this->expectExceptionCode(1544878800);
-
-        $sut = new AmazonAlexaService('    ', $this->serializer);
     }
 }

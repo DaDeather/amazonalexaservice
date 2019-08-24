@@ -5,6 +5,7 @@
   "require": {
     "php": ">=7.1.0",
     "ext-json": "*",
+    "ext-openssl": "*",
     "jms/serializer": "^2.0"
   },
   "require-dev": {

@@ -9,11 +9,6 @@ composer require dadadev/amazonalexaservice
 
 ### Simple Usage
 
-Creating the Service:
-```
-$amazonAlexaService = new \DaDaDev\AmazonAlexa\AmazonAlexaService('YOUR APP ID HERE');
-```
-
 Full Example:
 ```
 <?php
@@ -21,12 +16,13 @@ Full Example:
 use DaDaDev\AmazonAlexa\AmazonAlexaService;
 use DaDaDev\AmazonAlexa\Exceptions\ValidationException;
 use DaDaDev\AmazonAlexa\Request;
-use DaDaDev\AmazonAlexa\IntentHandling\IntentHandlerInterface;
+use DaDaDev\AmazonAlexa\RequestHandling\AbstractIntentHandler;
 use DaDaDev\AmazonAlexa\Response;
 use DaDaDev\AmazonAlexa\Responses\OutputSpeech;
+use DaDaDev\AmazonAlexa\Service\RequestValidationService;
 use JMS\Serializer\SerializerBuilder;
 
-class SampleIntentHandler implements IntentHandlerInterface
+class SampleIntentHandler extends AbstractIntentHandler
 {
     /** @var AmazonAlexaService */
     private $amazonAlexaService;
@@ -52,13 +48,15 @@ class SampleIntentHandler implements IntentHandlerInterface
 }
 
 $serializer = SerializerBuilder::create()->build();
-$amazonAlexaService = new AmazonAlexaService('YOUR APP ID HERE', $serializer);
+$requestValidationService = new RequestValidationService();
+$amazonAlexaService = new AmazonAlexaService($serializer);
 
 $jsonRequest = file_get_contents('php://input');
 $request = $amazonAlexaService->getAlexaRequest($jsonRequest);
 
 try {
-    $amazonAlexaService->validateIncomingRequest(
+    $requestValidationService->validateIncomingRequest(
+        'YOUR APP ID HERE',
         $_SERVER['HTTP_SIGNATURECERTCHAINURL'],
         $_SERVER['HTTP_SIGNATURE'],
         $jsonRequest,
@@ -73,9 +71,7 @@ try {
     ]));
 }
 
-$response = $amazonAlexaService->handleIntents($request, [
-    new SampleIntentHandler($amazonAlexaService),
-]);
+$response = $amazonAlexaService->handleIntents($request, new SampleIntentHandler($amazonAlexaService));
 
 if ($response) {
     header('Content-Type: application/json');

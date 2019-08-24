@@ -1,6 +1,6 @@
 <?php
 
-namespace DaDaDev\AmazonAlexaTests\Requests\AplUserEvent;
+namespace DaDaDev\AmazonAlexaTests\Unit\Requests\AplUserEvent;
 
 use DaDaDev\AmazonAlexa\AmazonAlexaService;
 use DaDaDev\AmazonAlexa\Requests\RequestTypes\AplUserEventRequest;
@@ -11,8 +11,6 @@ use PHPUnit\Framework\TestCase;
 
 class DefaultTest extends TestCase
 {
-    private const SOME_APP_ID = 'someAppId';
-
     /** @var SerializerInterface */
     private $serializer;
 
@@ -28,7 +26,7 @@ class DefaultTest extends TestCase
         $jsonRequest = file_get_contents(__DIR__ . '/Fixtures/apl_user_event_default.json');
         self::assertNotFalse($jsonRequest);
 
-        $amazonAlexaService = new AmazonAlexaService(self::SOME_APP_ID, $this->serializer);
+        $amazonAlexaService = new AmazonAlexaService($this->serializer);
         $request = $amazonAlexaService->getAlexaRequest($jsonRequest);
 
         self::assertSame('Alexa.Presentation.APL.UserEvent', $request->getRequest()->getType());
