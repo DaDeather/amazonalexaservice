@@ -112,8 +112,8 @@ class BasicItem
     protected $maxWidth;
 
     /**
-     * @var float|null
-     * @JMS\Type("float")
+     * @var string|null
+     * @JMS\Type("string")
      * @JMS\SerializedName("opacity")
      */
     protected $opacity;
@@ -252,15 +252,15 @@ class BasicItem
     protected $numbering;
 
     /**
-     * @var float|null
-     * @JMS\Type("float")
+     * @var string|null
+     * @JMS\Type("string")
      * @JMS\SerializedName("grow")
      */
     protected $grow;
 
     /**
-     * @var float|null
-     * @JMS\Type("float")
+     * @var string|null
+     * @JMS\Type("string")
      * @JMS\SerializedName("shrink")
      */
     protected $shrink;
@@ -562,19 +562,19 @@ class BasicItem
     }
 
     /**
-     * @return float|null
+     * @return string|null
      */
-    public function getOpacity(): ?float
+    public function getOpacity(): ?string
     {
         return $this->opacity;
     }
 
     /**
-     * @param float|null $opacity
+     * @param string|null $opacity
      *
      * @return $this
      */
-    public function setOpacity(?float $opacity): self
+    public function setOpacity(?string $opacity): self
     {
         $this->opacity = $opacity;
 
@@ -980,19 +980,19 @@ class BasicItem
     }
 
     /**
-     * @return float|null
+     * @return string|null
      */
-    public function getGrow(): ?float
+    public function getGrow(): ?string
     {
         return $this->grow;
     }
 
     /**
-     * @param float|null $grow
+     * @param string|null $grow
      *
      * @return $this
      */
-    public function setGrow(?float $grow): self
+    public function setGrow(?string $grow): self
     {
         $this->grow = $grow;
 
@@ -1000,19 +1000,19 @@ class BasicItem
     }
 
     /**
-     * @return float|null
+     * @return string|null
      */
-    public function getShrink(): ?float
+    public function getShrink(): ?string
     {
         return $this->shrink;
     }
 
     /**
-     * @param float|null $shrink
+     * @param string|null $shrink
      *
      * @return $this
      */
-    public function setShrink(?float $shrink): self
+    public function setShrink(?string $shrink): self
     {
         $this->shrink = $shrink;
 
