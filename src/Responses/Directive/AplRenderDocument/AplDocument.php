@@ -261,17 +261,18 @@ class AplDocument
     }
 
     /**
+     * @param string   $identifier
      * @param AplStyle $aplStyle
      *
      * @return $this
      */
-    public function addStyle(AplStyle $aplStyle): self
+    public function addStyle(string $identifier, AplStyle $aplStyle): self
     {
         if (!$this->styles) {
             $this->styles = [];
         }
 
-        $this->styles[] = $aplStyle;
+        $this->styles[$identifier] = $aplStyle;
 
         return $this;
     }
