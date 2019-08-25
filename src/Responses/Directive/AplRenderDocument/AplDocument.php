@@ -42,7 +42,7 @@ class AplDocument
     protected $theme = 'dark';
 
     /**
-     * @var string[]|null
+     * @var array<string, mixed>|null
      * @JMS\Type("array")
      * @JMS\SerializedName("settings")
      */
@@ -185,7 +185,7 @@ class AplDocument
     }
 
     /**
-     * @return string[]|null
+     * @return array<string, mixed>|null
      */
     public function getSettings(): ?array
     {
@@ -193,7 +193,7 @@ class AplDocument
     }
 
     /**
-     * @param string[]|null $settings
+     * @param array<string, mixed>|null $settings
      *
      * @return $this
      */
