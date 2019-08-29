@@ -9,7 +9,7 @@ class Resolution
     /**
      * @var ResolutionPerAuthority[]|null
      * @JMS\Type("array<DaDaDev\AmazonAlexa\Requests\RequestTypes\IntentElements\ResolutionPerAuthority>")
-     * @JMS\SerializedName("resolutionPerAuthority")
+     * @JMS\SerializedName("resolutionsPerAuthority")
      */
     protected $resolutionsPerAuthority;
 
