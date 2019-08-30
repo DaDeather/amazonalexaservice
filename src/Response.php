@@ -14,7 +14,8 @@ class Response
 
     /**
      * @var array|null
-     * @JMS\Type("array<string, string>")
+     * @JMS\Type("array")
+     * @JMS\SerializedName("sessionAttributes")
      */
     protected $sessionAttributes;
 
