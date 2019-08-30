@@ -41,10 +41,10 @@ class ResolutionPerAuthority
     }
 
     /**
-     * @return Values[]|null
+     * @return Values[]
      */
-    public function getValues(): ?array
+    public function getValues(): array
     {
-        return $this->values;
+        return $this->values ?? [];
     }
 }

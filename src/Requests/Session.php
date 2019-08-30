@@ -66,11 +66,31 @@ class Session
     }
 
     /**
-     * @return array|null
+     * @return array
      */
-    public function getAttributes(): ?array
+    public function getAttributes(): array
     {
-        return $this->attributes;
+        return $this->attributes ?? [];
+    }
+
+    /**
+     * @param string $attributeName
+     *
+     * @return mixed|null
+     */
+    public function getAttribute(string $attributeName)
+    {
+        return $this->attributes[$attributeName] ?? null;
+    }
+
+    /**
+     * @param string $attributeName
+     *
+     * @return bool
+     */
+    public function hasAttribute(string $attributeName): bool
+    {
+        return isset($this->attributes[$attributeName]);
     }
 
     /**

@@ -46,10 +46,30 @@ class Intent
     }
 
     /**
-     * @return array|null
+     * @return array
      */
-    public function getSlots(): ?array
+    public function getSlots(): array
     {
-        return $this->slots;
+        return $this->slots ?? [];
+    }
+
+    /**
+     * @param string $slotName
+     *
+     * @return bool
+     */
+    public function hasSlot(string $slotName): bool
+    {
+        return isset($this->slots[$slotName]);
+    }
+
+    /**
+     * @param string $slotName
+     *
+     * @return Slot
+     */
+    public function getSlot(string $slotName): Slot
+    {
+        return $this->slots[$slotName] ?? new NullSlot();
     }
 }

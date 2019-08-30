@@ -29,11 +29,11 @@ class Device
     }
 
     /**
-     * @return array|null
+     * @return array
      */
-    public function getSupportedInterfaces(): ?array
+    public function getSupportedInterfaces(): array
     {
-        return $this->supportedInterfaces;
+        return $this->supportedInterfaces ?? [];
     }
 
     /**

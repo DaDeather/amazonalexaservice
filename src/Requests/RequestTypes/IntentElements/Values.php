@@ -17,6 +17,6 @@ class Values
      */
     public function getValue(): ?Value
     {
-        return $this->value;
+        return $this->value ?? new NullValue();
     }
 }

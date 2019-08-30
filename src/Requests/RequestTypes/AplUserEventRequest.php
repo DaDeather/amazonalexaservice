@@ -39,19 +39,19 @@ class AplUserEventRequest extends AbstractRequest
     }
 
     /**
-     * @return string[]|null
+     * @return string[]
      */
-    public function getArguments(): ?array
+    public function getArguments(): array
     {
-        return $this->arguments;
+        return $this->arguments ?? [];
     }
 
     /**
-     * @return string[]|null
+     * @return string[]
      */
-    public function getComponents(): ?array
+    public function getComponents(): array
     {
-        return $this->components;
+        return $this->components ?? [];
     }
 
     /**

@@ -14,10 +14,10 @@ class Resolution
     protected $resolutionsPerAuthority;
 
     /**
-     * @return array|null
+     * @return array
      */
-    public function getResolutionsPerAuthority(): ?array
+    public function getResolutionsPerAuthority(): array
     {
-        return $this->resolutionsPerAuthority;
+        return $this->resolutionsPerAuthority ?? [];
     }
 }
