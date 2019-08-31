@@ -8,6 +8,7 @@ abstract class AbstractDirective
 {
     public const TYPE_APL_RENDER_DOCUMENT = 'Alexa.Presentation.APL.RenderDocument';
     public const TYPE_APL_EXECUTE_COMMANDS = 'Alexa.Presentation.APL.ExecuteCommands';
+    public const TYPE_DIALOG_DELEGATE = 'Dialog.Delegate';
 
     /**
      * @var string|null

@@ -123,6 +123,18 @@ class Response
     }
 
     /**
+     * @param AbstractDirective $directive
+     *
+     * @return Response
+     */
+    public function addDirective(AbstractDirective $directive): Response
+    {
+        $this->directives[] = $directive;
+
+        return $this;
+    }
+
+    /**
      * @return bool|null
      */
     public function getShouldEndSession(): ?bool
