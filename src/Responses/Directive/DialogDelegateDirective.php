@@ -29,11 +29,13 @@ class DialogDelegateDirective extends AbstractDirective
 
     /**
      * @param UpdatedIntent|null $updatedIntent
+     *
      * @return $this
      */
     public function setUpdatedIntent(?UpdatedIntent $updatedIntent): self
     {
         $this->updatedIntent = $updatedIntent;
+
         return $this;
     }
 }

@@ -9,26 +9,31 @@ class UpdatedIntent extends Intent
 {
     /**
      * @param string|null $name
+     *
      * @return $this
      */
     public function setName(?string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
     /**
      * @param string|null $confirmationStatus
+     *
      * @return $this
      */
     public function setConfirmationStatus(?string $confirmationStatus): self
     {
         $this->confirmationStatus = $confirmationStatus;
+
         return $this;
     }
 
     /**
      * @param Slot[]|null $slots
+     *
      * @return $this
      */
     public function setSlots(?array $slots): self
@@ -40,7 +45,7 @@ class UpdatedIntent extends Intent
 
     /**
      * @param string $slotName
-     * @param Slot $slot
+     * @param Slot   $slot
      *
      * @return $this
      */
