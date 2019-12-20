@@ -15,7 +15,7 @@ class Device
 
     /**
      * @var array[]|null
-     * @JMS\Type("array<string, array<string, array<string, string>>>")
+     * @JMS\Type("array<string, array>")
      * @JMS\SerializedName("supportedInterfaces")
      */
     private $supportedInterfaces;
