@@ -1,0 +1,74 @@
+{
+  "version": "1.0",
+  "session": {
+    "new": true,
+    "sessionId": "[SessionId]",
+    "application": {
+      "applicationId": "[AppId]"
+    },
+    "user": {
+      "userId": "[UserId]"
+    }
+  },
+  "context": {
+    "AudioPlayer": {
+      "playerActivity": "IDLE"
+    },
+    "Display": {
+    },
+    "Alexa.Presentation.APL": {
+    },
+    "System": {
+      "application": {
+        "applicationId": "[AppId]"
+      },
+      "user": {
+        "userId": "[UserId]"
+      },
+      "device": {
+        "deviceId": "[DeviceId]",
+        "supportedInterfaces": {
+          "AudioPlayer": {
+          },
+          "Display": {
+            "templateVersion": "1.0",
+            "markupVersion": "1.0"
+          },
+          "Alexa.Presentation.APL": {
+            "runtime": {
+              "maxVersion": "1.0"
+            }
+          }
+        }
+      },
+      "apiEndpoint": "https://api.amazonalexa.com",
+      "apiAccessToken": "<apiAccessToken-value>"
+    },
+    "Viewport": {
+      "experiences": [
+        {
+          "canRotate": true,
+          "canResize": true
+        },
+        {
+          "canRotate": false,
+          "canResize": false
+        }
+      ],
+      "shape": "ROUND",
+      "dpi": 160,
+      "currentPixelWidth": 480,
+      "currentPixelHeight": 480,
+      "touch": [
+        "SINGLE"
+      ]
+    }
+  },
+  "request": {
+    "type": "LaunchRequest",
+    "requestId": "[RequestId]",
+    "timestamp": "2019-12-19T09:33:58Z",
+    "locale": "en-GB",
+    "shouldLinkResultBeReturned": false
+  }
+}

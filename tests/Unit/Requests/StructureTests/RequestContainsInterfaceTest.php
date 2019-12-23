@@ -20,16 +20,33 @@ class RequestContainsInterfaceTest extends TestCase
             ->build();
     }
 
-    public function testParsingAplLaunchRequestToDetermineSupportedInterface(): void
+    public function dataProviderLaunchRequest(): array
     {
-        $jsonRequest = file_get_contents(__DIR__ . '/Fixtures/apl_launch_request.json');
+        return [
+            [
+                'fixtureFile' => __DIR__ . '/Fixtures/apl_launch_request_1.json',
+                '$expectedSupportedInterfaces' => 2,
+            ],
+            [
+                'fixtureFile' => __DIR__ . '/Fixtures/apl_launch_request_2.json',
+                '$expectedSupportedInterfaces' => 3,
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataProviderLaunchRequest
+     */
+    public function testParsingAplLaunchRequestToDetermineSupportedInterface(string $fixtureFile, int $expectedSupportedInterfaces): void
+    {
+        $jsonRequest = file_get_contents($fixtureFile);
         self::assertNotFalse($jsonRequest);
 
         $amazonAlexaService = new AmazonAlexaService($this->serializer);
         $request = $amazonAlexaService->getAlexaRequest($jsonRequest);
 
         self::assertNotEmpty($request->getContext()->getSystem()->getDevice()->getSupportedInterfaces());
-        self::assertCount(2, $request->getContext()->getSystem()->getDevice()->getSupportedInterfaces());
+        self::assertCount($expectedSupportedInterfaces, $request->getContext()->getSystem()->getDevice()->getSupportedInterfaces());
         self::assertFalse($request->getContext()->getSystem()->getDevice()->doesSupportInterface('APL'));
         self::assertTrue($request->getContext()->getSystem()->getDevice()->doesSupportInterface('Alexa.Presentation.APL'));
         self::assertIsArray($request->getContext()->getSystem()->getDevice()->getSupportedInterfaceByKey('Alexa.Presentation.APL'));
